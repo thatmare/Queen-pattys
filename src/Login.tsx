@@ -4,7 +4,7 @@ import {
   InputPassword,
   ButtonSumbit,
   IconsFood,
-} from "./Components/component.tsx";
+} from "./components/component.tsx";
 
 function Login() {
   return (
@@ -23,4 +23,5 @@ function Login() {
     </section>
   );
 }
+
 export { Login };
