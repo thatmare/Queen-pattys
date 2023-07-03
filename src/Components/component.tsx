@@ -1,3 +1,5 @@
+import { ChangeEvent  } from "react";
+
 function Logo() {
     return(
   <figure className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -6,7 +8,7 @@ function Logo() {
     )
 }
 
-function InputEmail() {
+function InputEmail({ email, onChange } : { email: string;  onChange: (event: ChangeEvent<HTMLInputElement>) => void; }) {
     return(
   <div>
     <label
@@ -22,6 +24,8 @@ function InputEmail() {
         type="email"
         autoComplete="email"
         required
+        value={email}
+        onChange={onChange}
         className="block w-full rounded-md border-0 py-1.5 pl-2 text-white shadow-sm ring-1 ring-inset ring-teal-300 placeholder:text-white bg-blackInput focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-md sm:leading-7"
       />
     </div>
@@ -29,7 +33,7 @@ function InputEmail() {
     )
 }
 
-function InputPassword() {
+function InputPassword({ password,  onChange } : { password: string;  onChange: (event: ChangeEvent<HTMLInputElement>) => void; }) {
     return(
   <div>
     <div className="flex items-center justify-between">
@@ -47,6 +51,8 @@ function InputPassword() {
         type="password"
         autoComplete="current-password"
         required
+        value={password}
+        onChange={onChange}
         className="block w-full rounded-md border-0 py-1.5 pl-2 text-white shadow-sm ring-1 ring-inset ring-teal-300 placeholder:text-white bg-blackInput focus:ring-3 focus:ring-inset focus:ring-teal-600 sm:text-md sm:leading-7"
       />
     </div>
@@ -59,13 +65,13 @@ function ButtonSumbit() {
   <div>
     <button
       type="submit"
-      className="flex w-full justify-center rounded-md bg-celadon px-3 py-1.5 text-md font-semibold leading-6 text-black shadow-sm hover:bg-teal-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:leading-7 mt-12"
-    >
+      className="flex w-full justify-center rounded-md bg-celadon px-3 py-1.5 text-md font-semibold leading-6 text-black shadow-sm hover:bg-teal-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:leading-7 mt-12">
       Ingresa
     </button>
   </div>
   )
 }
+
 
 function IconsFood() {
     return(

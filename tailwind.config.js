@@ -11,6 +11,7 @@ export default {
         gunMetal: '#1D2939',
         blackInput: '#252D37',
         strokeInput: '#D4C5C5',
+        errorRed: '#E63946',
       },
     },
   },
