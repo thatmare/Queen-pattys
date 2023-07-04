@@ -1,4 +1,4 @@
-let token = '';
+export let token = '';
 
 export function loginAPI (options: object, setError:(error:string)=> void) {
     fetch('http://localhost:8080/login', options)
