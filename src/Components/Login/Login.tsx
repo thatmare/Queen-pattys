@@ -30,7 +30,7 @@ function Login() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    loginAPI(options, setError);
+    loginAPI(options, setError)
   };
 
   return (
