@@ -1,18 +1,22 @@
-const options = {
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json',
-      'authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdyYWNlLmhvcHBlckBzeXN0ZXJzLnh5eiIsImlhdCI6MTY4ODQ5NTMxMSwiZXhwIjoxNjg4NDk4OTExLCJzdWIiOiIyIn0.aIfjIZ9s83dgj9BLYC8FrzJ0NgKDaujVbIntAPOma1M',
-    },
-  };
+// const token = localStorage.getItem('token');
+// console.log(token, 'aqui token de local storage')
 
-export function getProducts () {
-    fetch('http://localhost:8080/products', options)
-        .then(res => res.json()) // Convierte la respuesta a JSON
-        .then(data => console.log('AQUI DATA', data)) // Muestra los datos en la consola
-        .catch(err => console.log('AQUI ERROR', err));
-}
-getProducts();
+// const options = {
+//     method: 'GET',
+//     headers: {
+//       'content-type': 'application/json',
+//       'authorization': `Bearer ${token}`,
+//     },
+//   };
+
+// export function getProducts (options: object) {
+//     fetch('http://localhost:8080/products', options)
+//         .then(res => res.json()) // Convierte la respuesta a JSON
+//         // .then((data) => {return data}) // Muestra los datos en la consola
+//         .catch(err => console.log('AQUI ERROR', err));
+// }
+
+// getProducts();
 
 
 

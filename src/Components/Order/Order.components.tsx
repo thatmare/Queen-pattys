@@ -4,15 +4,15 @@ interface MenuBtnProps {
   
 function MenuBtn({ meals }: MenuBtnProps) {
     return (
-      <ul className="bg-blackBtn rounded-3xl w-full h-20 flex justify-evenly items-center m-3 border-2 border-amber-200">
+      <>
         {meals.map(menu => ( // se mapea sobre el array
-          <>
+          <ul key={menu} className="bg-blackBtn rounded-3xl w-full h-20 flex justify-evenly items-center m-3 border-2 border-amber-200"> 
             {menu === 'Desayuno' && <img className="w-16" src="src\assets\breakfast.png"></img>}
             {menu === 'Almuerzo y cena' && <img className="w-16" src="src\assets\lunch.png"></img>}
             <li className="text-xl" key={menu}>{menu}</li>
-          </>
+          </ul>
         ))}
-      </ul>
+      </>
     )
   }
   
@@ -54,18 +54,17 @@ function MenuBtn({ meals }: MenuBtnProps) {
   
   function OrderSum() { // se inserta la seleccion de fooditems
     return (
-      <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4">
+      <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium ">
         <li className="text-center font-medium">RESUMEN</li>
-        <li>Ejemplo de producto</li>
-        <span>x</span>
-        <span>$0.00</span>
-        <li>Ejemplo de producto</li>
-        <span>x</span>
-        <span>$0.00</span>
-        <p>TOTAL<span>$0.00</span></p>
-        <button className="bg-celadon text-gunMetal">ENVIAR A COCINA</button>
+        <li className="mt-4">Ejemplo de producto </li>
+        <span className="ml-2">x1</span>
+        <span className="ml-24">$0.00</span>
+        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">ENVIAR A COCINA</button>
       </ol>
     )
   }
 
 export { MenuBtn, FoodItems, Client, OrderSum }
+
+
+                      

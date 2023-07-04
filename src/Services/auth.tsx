@@ -2,7 +2,7 @@
 
 let token = '';
 
-export function loginAPI (options: object, setError:(error:string)=> void) {
+export function loginAPI (options: object, setError:(error:string) => any) {
 
     fetch('http://localhost:8080/login', options)
         .then(response => {
@@ -13,8 +13,7 @@ export function loginAPI (options: object, setError:(error:string)=> void) {
         })
         .then(data => {
             token = data.accessToken;
-            console.log(token)
-            console.log('exito')
+            localStorage.setItem('token', token)
             // Aquí puedes realizar acciones adicionales con el token
         })
         .catch(error => {
