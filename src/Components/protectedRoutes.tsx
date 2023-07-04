@@ -1,9 +1,12 @@
+// import { Navigate, Outlet } from "react-router-dom";
+// import { getToken } from "../hooks/auth";
 
-import { Navigate } from "react-router-dom";
+// export function PrivateRoute () {
+//   const token = getToken(); // Obtiene el token utilizando la función getToken
 
-export const ProtectedRoutes = ({ children, token }) => {
-  if (!token) {
-    return <Navigate to="/" />;
-  }
-  return children;
-};
+//   return token ? (
+//     <Outlet/>
+//   ) : (
+//     <Navigate to="/"/>
+//   );
+// }

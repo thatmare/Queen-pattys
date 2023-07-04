@@ -1,27 +1,40 @@
-export let token = '';
+// import { Navigate, Outlet } from "react-router-dom";
+
+let token = '';
 
 export function loginAPI (options: object, setError:(error:string)=> void) {
+
     fetch('http://localhost:8080/login', options)
-    .then(response => {
-    if (!response.ok) {
-        throw new Error('Error al iniciar sesión. Por favor, verifica tus credenciales.');
-        }
-        return response.json();
-    })
-    .then(data => {
-        token = data.accessToken;
-        console.log(token)
-        console.log('exito')
-        return token;
-        
-        // Aquí puedes realizar acciones adicionales con el token
-    })
-    .catch(error => {
-        console.error('Error al iniciar sesión:', error);
-        setError('Error al iniciar sesión. Por favor, verifica tus credenciales')
-        throw error;
-    });
+        .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            token = data.accessToken;
+            console.log(token)
+            console.log('exito')
+            // Aquí puedes realizar acciones adicionales con el token
+        })
+        .catch(error => {
+            console.error('Error al iniciar sesión:', error);
+            setError('Error al iniciar sesión. Por favor, verifica tus credenciales')
+            throw error;
+        });
 }
+
+
+
+// export function PrivateRoute () {
+//     const token = getToken(); // Obtiene el token utilizando la función getToken
+  
+//     return token ? (
+//       <Outlet/>
+//     ) : (
+//       <Navigate to="/"/>
+//     );
+//   }
 
 
 

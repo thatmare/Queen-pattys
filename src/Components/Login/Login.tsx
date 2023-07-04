@@ -4,28 +4,16 @@ import {
   InputPassword,
   ButtonSumbit,
   IconsFood,
-} from "./Components/component.tsx";
+} from "./Login.components.tsx";
 
 import { useState } from "react";
 
-import { loginAPI } from "./App.tsx";
+import { loginAPI } from "../../Services/auth.tsx";
 
 function Login() {
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  // useState es un array
-  // el 1er elemento sera variable, el 2do elemento es la fx de manejo de estado
-  // param con que se inicializa la fx, en este caso, un string vacio
-  // es convencion iniciar la fx con "set" + variable
-  // const state = useState()
-  // console.log(state)
-
-  // console.log(email)
-  // console.log(setEmail)
-
-  // const state = useState()
-  // console.log(state)
 
   const data = {
     email: email,

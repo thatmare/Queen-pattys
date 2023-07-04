@@ -7,11 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        celadon: '#C9F0E0',
-        gunMetal: '#1D2939',
+        blackBtn: '#2D3137',
         blackInput: '#252D37',
-        strokeInput: '#D4C5C5',
+        celadon: '#C9F0E0',
         errorRed: '#E63946',
+        gunMetal: '#1D2939',
+        strokeInput: '#D4C5C5',
       },
     },
   },
