@@ -8,7 +8,7 @@ import {
 
 import { useState } from "react";
 
-import { loginAPI } from "./hooks/useFetch.tsx";
+import { loginAPI } from "./App.tsx";
 
 function Login() {
   const [email, setEmail] = useState(''); 
