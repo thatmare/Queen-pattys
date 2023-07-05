@@ -9,6 +9,7 @@ function Breakfast() {
    
     // const [logout, setLogout] = useState(false); // [state, setState
     const [products, setProducts] = useState([]);
+    const [counters, setCounters] = useState<{ [key: string]: number }>({});
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
@@ -61,11 +62,11 @@ function Breakfast() {
             </div>
             <div className="grid grid-cols-[60%,40%] md:w-4/5 lg:w-3/5">
                 <div>
-                    <FoodItems items={menuItems}></FoodItems>
+                    <FoodItems items={menuItems} counters={counters} setCounters={setCounters}></FoodItems>
                 </div>
                 <div className="grid grid-rows-[0.2fr,1fr]">
                     <Client></Client>
-                    <OrderSum></OrderSum>
+                    <OrderSum counters={counters}></OrderSum>
                 </div>  
             </div>
         </section>

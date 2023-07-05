@@ -26,12 +26,14 @@ function MenuBtn({ meals }: MenuBtnProps) {
   
   interface MenuItems {
     items: MenuItem[];
+    counters: { [key: string]: number };
+    setCounters: React.Dispatch<React.SetStateAction<{ [key: string]: number }>>;
   }
   
-  function FoodItems({ items }: MenuItems) {
+  function FoodItems({ items, counters, setCounters }: MenuItems) {
 
     // anotación de ts conocida como "index signature" i "signatura de índice", que permite definir un objeto con claves de tipo "string" y valores de tipo "number"
-    const [ counters, setCounters ] = useState<{ [key: string]: number }>({});
+    //const [ counters, setCounters ] = useState<{ [key: string]: number }>({});
     // useState se inicializa con un objeto vacío para mantener un estado separado para cada item
     // en vez de usar un único estado para todos los counters, utilizamos un objeto donde cada key es el nombre del item del menú y el value es el counter correspondiente
     // cada vez que se agrega un nuevo item al menú, se crea una nueva key en el objeto 
@@ -51,7 +53,7 @@ function MenuBtn({ meals }: MenuBtnProps) {
         [itemName]: prevCounters[itemName] ? prevCounters[itemName] + 1 : 1,
       }));
     };
-
+    console.log({counters}, 'Aqui counters')
     return (
       <>
         {items.map((item) => (
@@ -72,6 +74,7 @@ function MenuBtn({ meals }: MenuBtnProps) {
         ))}
       </>
     );
+    
   }
   
   function Client() { // esta info debe de enviarse POST con key "client" 
@@ -83,17 +86,22 @@ function MenuBtn({ meals }: MenuBtnProps) {
     )
   }
   
-  function OrderSum() { // se inserta la seleccion de fooditems
-    return (
-      <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium ">
-        <li className="text-center font-medium">RESUMEN</li>
-        <li className="mt-4">Ejemplo de producto </li>
-        <span className="ml-2">x1</span>
-        <span className="ml-24">$0.00</span>
-        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">ENVIAR A COCINA</button>
-      </ol>
-    )
-  }
+function OrderSum({ counters }: { counters: { [key: string]: number } }) {
+  console.log({counters})
+  return (
+    <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
+      <li className="text-center font-medium">RESUMEN</li>
+      {Object.entries(counters).map(([itemName, count]) => (
+        <li key={itemName}>
+          {itemName}
+          <span className="ml-2">x{count}</span>
+          <span className="ml-24">$0.00</span>
+        </li>
+      ))}
+      <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">ENVIAR A COCINA</button>
+    </ol>
+  );
+}
 
 export { MenuBtn, FoodItems, Client, OrderSum }
 
