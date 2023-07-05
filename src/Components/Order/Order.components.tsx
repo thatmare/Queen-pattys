@@ -86,24 +86,57 @@ function MenuBtn({ meals }: MenuBtnProps) {
     )
   }
   
-function OrderSum({ counters }: { counters: { [key: string]: number } }) {
-  console.log({counters}, 'Aqui counters de orderSum')
-  // Filtrar los elementos con cantidad mayor o igual a cero
-  const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
-  return (
-    <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
-      <li className="text-center font-medium">RESUMEN</li>
-      {filteredItems.map(([itemName, count]) => (
-        <li key={itemName}>
-          {itemName}
-          <span className="ml-2">x{count}</span>
-          <span className="ml-24">$0.00</span>
-        </li>
-      ))}
-      <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">ENVIAR A COCINA</button>
-    </ol>
-  );
-}
+  function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }; menuItems: MenuItem[] }) {
+    const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
+    
+    return (
+      <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
+        <li className="text-center font-medium">RESUMEN</li>
+        {filteredItems.map(([itemName, count]) => {
+          const item = menuItems.find((menuItem) => menuItem.name === itemName);
+          const totalPrice = item ? item.price * count : 0;
+          
+          return (
+            <li key={itemName}>
+              {itemName}
+              <span className="ml-2">x{count}</span>
+              <span className="ml-24">${totalPrice.toFixed(2)}</span>
+            </li>
+          );
+        })}
+        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">ENVIAR A COCINA</button>
+      </ol>
+    );
+  }
+  
+
+// function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }; menuItems: MenuItem[] }) {
+//   console.log({ counters }, 'Aqui counters de orderSum');
+    
+//   return (
+//     <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
+//       <li className="text-center font-medium">RESUMEN</li>
+//       {Object.entries(counters).map(([itemName, count]) => {
+//         const menuItem = menuItems.find((item) => item.name === itemName);
+//         if (menuItem) {
+//           const totalPrice = menuItem.price * count;
+//           return (
+//             <li key={itemName}>
+//               {itemName}
+//               <span className="ml-2">x{count}</span>
+//               <span className="ml-24">${totalPrice.toFixed(2)}</span>
+//             </li>
+//           );
+//         }
+//         return null;
+//       })}
+//       <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">
+//         ENVIAR A COCINA
+//       </button>
+//     </ol>
+//   );
+// }
+
 
 export { MenuBtn, FoodItems, Client, OrderSum }
 

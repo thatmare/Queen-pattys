@@ -66,7 +66,7 @@ function Breakfast() {
                 </div>
                 <div className="grid grid-rows-[0.2fr,1fr]">
                     <Client></Client>
-                    <OrderSum counters={counters}></OrderSum>
+                    <OrderSum counters={counters} menuItems={menuItems}></OrderSum>
                 </div>  
             </div>
         </section>
