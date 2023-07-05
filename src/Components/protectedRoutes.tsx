@@ -9,7 +9,7 @@ export const PrivateRoute = ({ children , redirectTo= '/'}) => {
     return children;  
 
 }
-
+// 
 
 // if (localStorage.getItem('token') === null) {
 //     return <Navigate to= "/" />;

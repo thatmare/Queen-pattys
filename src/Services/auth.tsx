@@ -4,7 +4,7 @@ let token = '';
 
 export function loginAPI (options: object, setError:(error:string) => any) {
 
-    fetch('http://localhost:8080/login', options)
+    return fetch('http://localhost:8080/login', options)
         .then(response => {
         if (!response.ok) {
             throw new Error('Error al iniciar sesión. Por favor, verifica tus credenciales.');
@@ -14,6 +14,7 @@ export function loginAPI (options: object, setError:(error:string) => any) {
         .then(data => {
             token = data.accessToken;
             localStorage.setItem('token', token)
+            return token
             // Aquí puedes realizar acciones adicionales con el token
         })
         .catch(error => {

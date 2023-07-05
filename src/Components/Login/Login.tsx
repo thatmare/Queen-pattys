@@ -35,7 +35,8 @@ function Login() {
 
   const handleSubmit = async (event:any) => {
     event.preventDefault();
-    await loginAPI(options, setError)
+    const token = await loginAPI(options, setError)
+    console.log('aqui va llamada', token)
     if (localStorage.getItem('token')) {
       navigate('/order')
     }

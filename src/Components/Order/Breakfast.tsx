@@ -40,8 +40,6 @@ function Breakfast() {
         }
     };
 
-   
-
     const desayunoItems = ["Desayuno"]
     const almuerzoCenaItems = ["Almuerzo y cena"]
     const menuItems = products;

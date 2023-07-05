@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface MenuBtnProps {
     meals: string[]
 } //ts: se recibira un array con elementos string
@@ -27,6 +29,29 @@ function MenuBtn({ meals }: MenuBtnProps) {
   }
   
   function FoodItems({ items }: MenuItems) {
+
+    // anotación de ts conocida como "index signature" i "signatura de índice", que permite definir un objeto con claves de tipo "string" y valores de tipo "number"
+    const [ counters, setCounters ] = useState<{ [key: string]: number }>({});
+    // useState se inicializa con un objeto vacío para mantener un estado separado para cada item
+    // en vez de usar un único estado para todos los counters, utilizamos un objeto donde cada key es el nombre del item del menú y el value es el counter correspondiente
+    // cada vez que se agrega un nuevo item al menú, se crea una nueva key en el objeto 
+
+    const handleDecrement = (itemName: string) => { 
+      if(counters[itemName] > 0) {
+        setCounters((prevCounters) => ({ // actualiza el estado de counters. Se utiliza una fx como argumento, que recibe el estado anterior 
+          ...prevCounters, // operador de propagación para copiar todos los pares clave-valor del estado anterior en un nuevo objeto
+          [itemName]: prevCounters[itemName] -1, // crea o actualiza una propiedad en el nuevo objeto utilizando el nombre del elemento como clave y resta 1 al valor del contador para el elemento específico
+        }));
+      }
+    };
+
+    const handleIncrement = (itemName: string) => {
+      setCounters((prevCounters) => ({
+        ...prevCounters,
+        [itemName]: prevCounters[itemName] ? prevCounters[itemName] + 1 : 1,
+      }));
+    };
+
     return (
       <>
         {items.map((item) => (
@@ -37,6 +62,12 @@ function MenuBtn({ meals }: MenuBtnProps) {
             <li className="font-light">
               S./{item.price} {/* Precio del platillo */}
             </li>
+            
+            <button onClick={() => handleDecrement(item.name)}>-</button>
+            
+            <span>{counters[item.name] || 0}</span>
+            
+            <button onClick={() => handleIncrement(item.name)}>+</button>
           </ul>
         ))}
       </>
