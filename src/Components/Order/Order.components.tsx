@@ -87,11 +87,13 @@ function MenuBtn({ meals }: MenuBtnProps) {
   }
   
 function OrderSum({ counters }: { counters: { [key: string]: number } }) {
-  console.log({counters})
+  console.log({counters}, 'Aqui counters de orderSum')
+  // Filtrar los elementos con cantidad mayor o igual a cero
+  const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
   return (
     <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
       <li className="text-center font-medium">RESUMEN</li>
-      {Object.entries(counters).map(([itemName, count]) => (
+      {filteredItems.map(([itemName, count]) => (
         <li key={itemName}>
           {itemName}
           <span className="ml-2">x{count}</span>

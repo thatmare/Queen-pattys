@@ -9,12 +9,8 @@ export function App() {
   return(
     <BrowserRouter>
       <Routes>
-    
         <Route path="/" element={<Login />} />
-
         <Route path="/order" element={ <PrivateRoute> <Order /></PrivateRoute> } />
-      
-
       </Routes>
     </BrowserRouter>    
   )
