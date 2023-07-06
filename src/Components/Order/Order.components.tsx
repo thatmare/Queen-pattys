@@ -88,14 +88,17 @@ function MenuBtn({ meals }: MenuBtnProps) {
   
   function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }; menuItems: MenuItem[] }) {
     const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
-    
+    let totalPriceSum = 0;
+
     return (
       <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
         <li className="text-center font-medium">RESUMEN</li>
+
         {filteredItems.map(([itemName, count]) => {
           const item = menuItems.find((menuItem) => menuItem.name === itemName);
           const totalPrice = item ? item.price * count : 0;
-          
+          totalPriceSum += totalPrice;
+         
           return (
             <li key={itemName}>
               {itemName}
@@ -104,6 +107,8 @@ function MenuBtn({ meals }: MenuBtnProps) {
             </li>
           );
         })}
+        
+        <p>TOTAL ${totalPriceSum.toFixed(2)}</p>
         <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">ENVIAR A COCINA</button>
       </ol>
     );
