@@ -9,7 +9,8 @@ import { fetchProducts } from "../../Services/getProducts.tsx"
 function Breakfast() {
     const [products, setProducts] = useState([]);
     const [counters, setCounters] = useState<{ [key: string]: number }>({});
-    
+    const [selectedClient, setSelectedClient] = useState('');
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -53,8 +54,8 @@ function Breakfast() {
                     <FoodItems items={menuItems} counters={counters} setCounters={setCounters}></FoodItems>
                 </div>
                 <div className="grid grid-rows-[0.2fr,1fr]">
-                    <Client></Client>
-                    <OrderSum counters={counters} menuItems={menuItems}></OrderSum>
+                    <Client setSelectedClient={setSelectedClient}></Client>
+                    <OrderSum counters={counters} menuItems={menuItems} selectedClient={selectedClient}></OrderSum>
                 </div>  
             </div>
         </section>

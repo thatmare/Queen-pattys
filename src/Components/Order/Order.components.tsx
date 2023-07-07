@@ -31,6 +31,10 @@ function MenuBtn({ meals }: MenuBtnProps) {
     counters: { [key: string]: number };
     setCounters: React.Dispatch<React.SetStateAction<{ [key: string]: number }>>;
   }
+
+  interface ClientProps {
+    setSelectedClient: React.Dispatch<React.SetStateAction<string>>;
+  }
   
   function FoodItems({ items, counters, setCounters }: MenuItems) {
 
@@ -79,16 +83,22 @@ function MenuBtn({ meals }: MenuBtnProps) {
     
   }
   
-  function Client() { // esta info debe de enviarse POST con key "client" 
+  function Client({ setSelectedClient  }: ClientProps) { // esta info debe de enviarse POST con key "client" 
+
+    const handleClient = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectedClient(event.target.value)
+    }
+
     return(
-      <select name="mesas" id="mesas" className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4">
+      <select name="mesas" id="mesas" onChange={handleClient} className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4">
+        <option value="NO CLIENT">Selecciona una mesa</option>
         <option value="mesa1">Mesa 1</option>
         <option value="mesa2">Mesa 2</option>
       </select>
     )
   }
   
-function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }; menuItems: MenuItem[] }) {
+function OrderSum({ counters, menuItems, selectedClient }: { counters: { [key: string]: number }; menuItems: MenuItem[]; selectedClient: string }) {
   const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
 
 
@@ -97,7 +107,7 @@ function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }
 
   const handleOrder = () => {
     const order = {
-      client: '', // recuperar de seleccion de mesa
+      client: selectedClient, // recuperar de seleccion de mesa
       id: '',
       products: filteredItems.map( ([itemName, qty]) => 
       {
@@ -142,7 +152,7 @@ function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }
         })}
         
         <p>TOTAL ${totalPriceSum.toFixed(2)}</p>
-        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12" type= 'button' onClick={handleOrder} >ENVIAR A COCINA</button>
+        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12" type= 'button' onClick={handleOrder}>Enviar a cocina</button>
       </ol>
     );
   }
