@@ -21,6 +21,8 @@ function MenuBtn({ meals }: MenuBtnProps) {
   interface MenuItem {
     name: string;
     price: number;
+    id: number;
+    type: string;
   }
   
   
@@ -53,7 +55,7 @@ function MenuBtn({ meals }: MenuBtnProps) {
         [itemName]: prevCounters[itemName] ? prevCounters[itemName] + 1 : 1,
       }));
     };
-    // console.log({counters}, 'Aqui counters')
+    console.log(items, 'Aqui items')
     return (
       <>
         {items.map((item) => (
@@ -88,6 +90,8 @@ function MenuBtn({ meals }: MenuBtnProps) {
   
 function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }; menuItems: MenuItem[] }) {
   const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
+
+
     
   let totalPriceSum = 0;
 
@@ -95,21 +99,24 @@ function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }
     const order = {
       client: '', // recuperar de seleccion de mesa
       id: '',
-      products: filteredItems.map( ([itemName, qty]) => (
-        {
-        qty: qty,
-        product: {
-          id: '',
-          name: itemName,
-          price: '', // obtener precio 
-          type: 'Desayuno',
-          dataEntry: new Date(),
-        }
-        }
-      )),
+      products: filteredItems.map( ([itemName, qty]) => 
+      {
+        const menuItem= menuItems.find((item) => item.name === itemName);
+        return{
+      qty: qty,
+      product: {
+        id: menuItem?.id, // obtener id de la API
+        name: itemName,
+        price: menuItem?.price, // obtener precio de la API
+        type: menuItem?.type, // obtener de la API
+        dataEntry: new Date(),
+      },
       status: 'pending',
       dataEntry: new Date(),
-    }
+      }
+      }
+    )
+  }
 
     postOrders(order)
       .then(request => console.log(request))

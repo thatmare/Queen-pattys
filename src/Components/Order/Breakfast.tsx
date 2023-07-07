@@ -1,8 +1,8 @@
-import { MenuBtn, FoodItems, Client, OrderSum } from "./Order.components"
+import { MenuBtn, FoodItems, Client, OrderSum } from "./Order.components.tsx"
 import { useEffect, useState } from 'react'
 import { Logo } from '../Login/Login.components'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { fetchProducts } from "../../Services/getProducts"
+import { useNavigate } from 'react-router-dom'
+import { fetchProducts } from "../../Services/getProducts.tsx"
 
 
 
