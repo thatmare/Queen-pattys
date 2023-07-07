@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { postOrders } from "../../Services/postOrders";
 interface MenuBtnProps {
     meals: string[]
 } //ts: se recibira un array con elementos string
@@ -53,7 +53,7 @@ function MenuBtn({ meals }: MenuBtnProps) {
         [itemName]: prevCounters[itemName] ? prevCounters[itemName] + 1 : 1,
       }));
     };
-    console.log({counters}, 'Aqui counters')
+    // console.log({counters}, 'Aqui counters')
     return (
       <>
         {items.map((item) => (
@@ -86,20 +86,46 @@ function MenuBtn({ meals }: MenuBtnProps) {
     )
   }
   
-  function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }; menuItems: MenuItem[] }) {
-    const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
-    let totalPriceSum = 0;
+function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }; menuItems: MenuItem[] }) {
+  const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
+    
+  let totalPriceSum = 0;
 
-    return (
-      <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
-        <li className="text-center font-medium">RESUMEN</li>
+  const handleOrder = () => {
+    const order = {
+      client: '', // recuperar de seleccion de mesa
+      id: '',
+      products: filteredItems.map( ([itemName, qty]) => (
+        {
+        qty: qty,
+        product: {
+          id: '',
+          name: itemName,
+          price: '', // obtener precio 
+          type: 'Desayuno',
+          dataEntry: new Date(),
+        }
+        }
+      )),
+      status: 'pending',
+      dataEntry: new Date(),
+    }
 
-        {filteredItems.map(([itemName, count]) => {
-          const item = menuItems.find((menuItem) => menuItem.name === itemName);
-          const totalPrice = item ? item.price * count : 0;
-          totalPriceSum += totalPrice;
+    postOrders(order)
+      .then(request => console.log(request))
+      .catch(error => console.error('Los productos no pudieron enviarse',error))
+    } 
+
+  return (
+    <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
+      <li className="text-center font-medium">RESUMEN</li>
+
+      {filteredItems.map(([itemName, count]) => {
+        const item = menuItems.find((menuItem) => menuItem.name === itemName);
+        const totalPrice = item ? item.price * count : 0;
+        totalPriceSum += totalPrice;
          
-          return (
+        return (
             <li key={itemName}>
               {itemName}
               <span className="ml-2">x{count}</span>
@@ -109,39 +135,10 @@ function MenuBtn({ meals }: MenuBtnProps) {
         })}
         
         <p>TOTAL ${totalPriceSum.toFixed(2)}</p>
-        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">ENVIAR A COCINA</button>
+        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12" type= 'button' onClick={handleOrder} >ENVIAR A COCINA</button>
       </ol>
     );
   }
-  
-
-// function OrderSum({ counters, menuItems }: { counters: { [key: string]: number }; menuItems: MenuItem[] }) {
-//   console.log({ counters }, 'Aqui counters de orderSum');
-    
-//   return (
-//     <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
-//       <li className="text-center font-medium">RESUMEN</li>
-//       {Object.entries(counters).map(([itemName, count]) => {
-//         const menuItem = menuItems.find((item) => item.name === itemName);
-//         if (menuItem) {
-//           const totalPrice = menuItem.price * count;
-//           return (
-//             <li key={itemName}>
-//               {itemName}
-//               <span className="ml-2">x{count}</span>
-//               <span className="ml-24">${totalPrice.toFixed(2)}</span>
-//             </li>
-//           );
-//         }
-//         return null;
-//       })}
-//       <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12">
-//         ENVIAR A COCINA
-//       </button>
-//     </ol>
-//   );
-// }
-
 
 export { MenuBtn, FoodItems, Client, OrderSum }
 

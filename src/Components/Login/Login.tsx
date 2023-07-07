@@ -61,7 +61,7 @@ function Login() {
             <InputEmail email={email} onChange={(event) => setEmail(event.target.value)} />
             <InputPassword password={password} onChange={(event) => setPassword(event.target.value)}/>
             <ButtonSumbit />
-            {error && <div className="text-errorRed font-medium">{error}</div>}
+            {error && <div className="text-red-400 font-medium">{error}</div>}
           </form>
           <IconsFood />
         </div>

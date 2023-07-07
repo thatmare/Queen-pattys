@@ -2,36 +2,24 @@ import { MenuBtn, FoodItems, Client, OrderSum } from "./Order.components"
 import { useEffect, useState } from 'react'
 import { Logo } from '../Login/Login.components'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { fetchProducts } from "../../Services/getProducts"
 
 
 
 function Breakfast() {
-   
-    // const [logout, setLogout] = useState(false); // [state, setState
     const [products, setProducts] = useState([]);
     const [counters, setCounters] = useState<{ [key: string]: number }>({});
-    const token = localStorage.getItem('token');
+    
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchProducts = async () => {
-        try {
-            
-            const response = await fetch('http://localhost:8080/products', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+        fetchProducts()
+            .then(data => {
+                setProducts(data);
+            })
+            .catch(error => {
+                console.error('Error setting products:', error);
             });
-
-            const data = await response.json();
-            console.log(data,'Aqui los productos');
-            setProducts(data)
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-        };
-
-        fetchProducts();
     }, []);
 
     const handleLogout = (event:any) => {
@@ -72,17 +60,5 @@ function Breakfast() {
         </section>
     )
 }
-// Uso del componente
-// function App() {
-//     const desayunoItems = ["Desayuno"];
-//     const almuerzoCenaItems = ["Almuerzo", "Cena"];
-  
-//     return (
-//       <div>
-//         <MenuBtn items={desayunoItems} />
-//         <MenuBtn items={almuerzoCenaItems} />
-//       </div>
-//     );
-//   }
 
 export { Breakfast };
