@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login } from "./Components/Login/Login.tsx";
 import { Order } from "./Components/Order/Order.tsx";
+import { Kitchen } from "./Components/Kitchen/kitchen.tsx";
 import { PrivateRoute } from "./Components/protectedRoutes.tsx";
 
 
@@ -11,6 +12,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/order" element={ <PrivateRoute> <Order /></PrivateRoute> } />
+        <Route path='/kitchen' element={<PrivateRoute> <Kitchen /></PrivateRoute>} />
       </Routes>
     </BrowserRouter>    
   )

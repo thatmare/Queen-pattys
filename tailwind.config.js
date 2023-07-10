@@ -13,6 +13,8 @@ export default {
         errorRed: '#E63946',
         gunMetal: '#1D2939',
         strokeInput: '#D4C5C5',
+        yellowTimer: '#CBB978',
+        kitchenText: '#D4C5C5',
       },
     },
   },
