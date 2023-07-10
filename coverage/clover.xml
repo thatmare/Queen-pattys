@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1689016491263" clover="3.2.0">
+  <project timestamp="1689016491263" name="All files">
+    <metrics statements="38" coveredstatements="21" conditionals="4" coveredconditionals="1" methods="13" coveredmethods="6" elements="55" coveredelements="28" complexity="0" loc="38" ncloc="38" packages="2" files="3" classes="3"/>
+    <package name="Components.Login">
+      <metrics statements="26" coveredstatements="19" conditionals="3" coveredconditionals="1" methods="9" coveredmethods="6"/>
+      <file name="Login.components.tsx" path="E:\Git\Queen-pattys\src\Components\Login\Login.components.tsx">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+      </file>
+      <file name="Login.tsx" path="E:\Git\Queen-pattys\src\Components\Login\Login.tsx">
+        <metrics statements="20" coveredstatements="13" conditionals="3" coveredconditionals="1" methods="4" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="Services">
+      <metrics statements="12" coveredstatements="2" conditionals="1" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="auth.tsx" path="E:\Git\Queen-pattys\src\Services\auth.tsx">
+        <metrics statements="12" coveredstatements="2" conditionals="1" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="9" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
