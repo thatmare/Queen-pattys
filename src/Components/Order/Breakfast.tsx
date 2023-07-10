@@ -37,19 +37,18 @@ function Breakfast() {
     return (
         <section className=" bg-gunMetal min-h-screen min-w-fit flex flex-col justify-center items-center">
             <button
-                            type="button"
-                            className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                            onClick={handleLogout}
-                          >X
-                            <span className="sr-only">Close panel</span>
-                        
-                          </button>
+                type="button"
+                className="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                onClick={handleLogout}
+                >X
+                <span className="sr-only">Close panel</span>        
+                </button>
             <Logo></Logo>
-            <div className="flex justify-center items-center w-4/6 md:w-4/5 lg:w-3/5">
+            <div className="flex justify-center items-center w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5">
                 <MenuBtn meals={desayunoItems}></MenuBtn>
                 <MenuBtn meals={almuerzoCenaItems}></MenuBtn>
             </div>
-            <div className="grid grid-cols-[60%,40%] md:w-4/5 lg:w-3/5">
+            <div className="grid grid-cols-[60%,40%] md:w-4/5 lg:w-3/5 xl:w-2/5">
                 <div>
                     <FoodItems items={menuItems} counters={counters} setCounters={setCounters}></FoodItems>
                 </div>
