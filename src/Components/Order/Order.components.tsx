@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postOrders } from "../../Services/postOrders";
+import { postOrders } from "../../Services/postOrders.tsx";
 interface MenuBtnProps {
     meals: string[]
 } //ts: se recibira un array con elementos string
@@ -59,23 +59,28 @@ function MenuBtn({ meals }: MenuBtnProps) {
         [itemName]: prevCounters[itemName] ? prevCounters[itemName] + 1 : 1,
       }));
     };
-    console.log(items, 'Aqui items')
+    // console.log(items, 'Aqui items')
     return (
       <>
         {items.map((item) => (
           <ul className="bg-blackBtn rounded-3xl w-84 h-32 flex flex-col justify-evenly items-start m-3 p-6 border-2 border-pink-400 text-xl" key={item.name}>
-            <li>
+            <li className="font-medium text-xl">
               {item.name} {/* Nombre del platillo */}
             </li>
-            <li className="font-light">
-              S./{item.price} {/* Precio del platillo */}
-            </li>
-            
-            <button onClick={() => handleDecrement(item.name)}>-</button>
-            
-            <span>{counters[item.name] || 0}</span>
-            
-            <button onClick={() => handleIncrement(item.name)}>+</button>
+            <div className="flex justify-between w-full">
+              <li className="font-light">
+                S./{item.price} {/* Precio del platillo */}
+              </li>
+              
+                <div className="flex justify-between w-1/4 font-medium text-xl">
+                  <button onClick={() => handleDecrement(item.name)}>-</button>
+                  
+                  <span>{counters[item.name] || 0}</span>
+                  
+                  <button onClick={() => handleIncrement(item.name)}>+</button>
+                </div>
+            </div>
+
           </ul>
         ))}
       </>
@@ -100,42 +105,40 @@ function MenuBtn({ meals }: MenuBtnProps) {
   
 function OrderSum({ counters, menuItems, selectedClient }: { counters: { [key: string]: number }; menuItems: MenuItem[]; selectedClient: string }) {
   const filteredItems = Object.entries(counters).filter(([_, count]) => count > 0);
-
-
-    
+ 
   let totalPriceSum = 0;
 
   const handleOrder = () => {
-    const order = {
-      client: selectedClient, // recuperar de seleccion de mesa
-      id: '',
-      products: filteredItems.map( ([itemName, qty]) => 
-      {
-        const menuItem= menuItems.find((item) => item.name === itemName);
-        return{
-      qty: qty,
-      product: {
-        id: menuItem?.id, // obtener id de la API
-        name: itemName,
-        price: menuItem?.price, // obtener precio de la API
-        type: menuItem?.type, // obtener de la API
-        dataEntry: new Date(),
-      },
-      status: 'pending',
+  const order = {
+    client: selectedClient, // recuperar de seleccion de mesa
+    id: '',
+    products: filteredItems.map( ([itemName, qty]) => 
+    {
+      const menuItem= menuItems.find((item) => item.name === itemName);
+      return {
+    qty: qty,
+    product: {
+      id: menuItem?.id, // obtener id de la API
+      name: itemName,
+      price: menuItem?.price, // obtener precio de la API
+      type: menuItem?.type, // obtener de la API
       dataEntry: new Date(),
-      }
-      }
-    )
+    },
+    status: 'pending',
+    dataEntry: new Date(),
+    }
+    }
+  )
   }
 
-    postOrders(order)
-      .then(request => console.log(request))
-      .catch(error => console.error('Los productos no pudieron enviarse',error))
-    } 
+  postOrders(order)
+    .then(request => console.log(request))
+    .catch(error => console.error('Los productos no pudieron enviarse',error))
+  } 
 
   return (
     <ol className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 text-justify font-medium">
-      <li className="text-center font-medium">RESUMEN</li>
+      <li className="text-center font-medium mt-3">RESUMEN</li>
 
       {filteredItems.map(([itemName, count]) => {
         const item = menuItems.find((menuItem) => menuItem.name === itemName);
@@ -143,16 +146,18 @@ function OrderSum({ counters, menuItems, selectedClient }: { counters: { [key: s
         totalPriceSum += totalPrice;
          
         return (
-            <li key={itemName}>
+            <li key={itemName} className="font-normal text-left m-3 grid grid-cols-[4fr,1fr]">
               {itemName}
-              <span className="ml-2">x{count}</span>
-              <span className="ml-24">${totalPrice.toFixed(2)}</span>
-            </li>
+              <span className="font-light text-right">x{count}</span>
+              <span className="font-normal">${totalPrice.toFixed(2)}</span>
+              <br />
+              <br />
+            </li>  
           );
         })}
         
-        <p>TOTAL ${totalPriceSum.toFixed(2)}</p>
-        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 mt-12" type= 'button' onClick={handleOrder}>Enviar a cocina</button>
+        <p className="text-left m-3">TOTAL <br /> ${totalPriceSum.toFixed(2)}</p>
+        <button className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 my-6" type= 'button' onClick={handleOrder}>Enviar a cocina</button>
       </ol>
     );
   }
