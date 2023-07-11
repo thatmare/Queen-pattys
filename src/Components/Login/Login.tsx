@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 // import { Navigate } from "react-router";
 import { loginAPI } from "../../Services/auth.tsx";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 function Login() {
   
@@ -35,19 +35,11 @@ function Login() {
 
   const handleSubmit = async (event:any) => {
     event.preventDefault();
-    const token = await loginAPI(options, setError)
-    console.log('aqui va llamada', token)
+    await loginAPI(options, setError)
+    // console.log('aqui va llamada', token)
     if (localStorage.getItem('token')) {
       navigate('/order')
     }
-  //   try {
-  //   await loginAPI(options, setError)
-  //     if (localStorage.getItem('token')) {
-  //       navigate('/order')
-  //     }
-  // } catch (error) {
-  //   console.error('Error fetching products:', error);
-  // }
 }
   
   

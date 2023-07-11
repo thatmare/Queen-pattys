@@ -23,7 +23,7 @@ function Breakfast() {
             });
     }, []);
 
-    const handleLogout = (event:any) => {
+    const handleLogout = () => {
         localStorage.removeItem('token');
         if (localStorage.getItem('token') === null) {
             navigate('/')
