@@ -14,6 +14,7 @@ export function loginAPI (options: object, setError:(error:string) => any) {
         .then(data => {
             token = data.accessToken;
             localStorage.setItem('token', token)
+            console.log(token)
             return token
             // Aquí puedes realizar acciones adicionales con el token
         })
