@@ -35,19 +35,11 @@ function Login() {
 
   const handleSubmit = async (event:any) => {
     event.preventDefault();
-    const token = await loginAPI(options, setError)
-    console.log('aqui va llamada', token)
+    await loginAPI(options, setError)
+    // console.log('aqui va llamada', token)
     if (localStorage.getItem('token')) {
       navigate('/order')
     }
-  //   try {
-  //   await loginAPI(options, setError)
-  //     if (localStorage.getItem('token')) {
-  //       navigate('/order')
-  //     }
-  // } catch (error) {
-  //   console.error('Error fetching products:', error);
-  // }
 }
   
   
