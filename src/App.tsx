@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login } from "./Components/Login/Login.tsx";
 import { Order } from "./Components/Order/Order.tsx";
-import { Kitchen } from "./Components/Kitchen/kitchen.tsx";
+import { Kitchen } from "./Components/Kitchen/Kitchen.tsx";
 import { PrivateRoute } from "./Components/protectedRoutes.tsx";
 
 
