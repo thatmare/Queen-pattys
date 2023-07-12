@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -151,7 +151,7 @@
 <a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,7 +159,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,7 +184,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,7 +211,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,7 +224,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,18 +233,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import { ChangeEvent  } from "react";
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { ChangeEvent  } from "react";
 &nbsp;
-function Logo() {
-    return(
+function <span class="fstat-no" title="function not covered" >Logo(</span>) {
+<span class="cstat-no" title="statement not covered" >    return(</span>
   &lt;figure className="sm:mx-auto sm:w-full sm:max-w-sm"&gt;
     &lt;img src="src\assets\queex4.png"&gt;&lt;/img&gt;
   &lt;/figure&gt;
     )
 }
 &nbsp;
-function InputEmail({ email, onChange } : { email: string;  onChange: (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void; }) {
-    return(
+function <span class="fstat-no" title="function not covered" >InputEmail(</span>{ email, onChange } : { email: string;  onChange: (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void; }) {
+<span class="cstat-no" title="statement not covered" >    return(</span>
   &lt;div&gt;
     &lt;label
       htmlFor="email"
@@ -268,8 +268,8 @@ function InputEmail({ email, onChange } : { email: string;  onChange: (event: Ch
     )
 }
 &nbsp;
-function InputPassword({ password,  onChange } : { password: string;  onChange: (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void; }) {
-    return(
+function <span class="fstat-no" title="function not covered" >InputPassword(</span>{ password,  onChange } : { password: string;  onChange: (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void; }) {
+<span class="cstat-no" title="statement not covered" >    return(</span>
   &lt;div&gt;
     &lt;div className="flex items-center justify-between"&gt;
       &lt;label
@@ -295,8 +295,8 @@ function InputPassword({ password,  onChange } : { password: string;  onChange: 
     )
 }
 &nbsp;
-function ButtonSumbit() {
-    return(
+function <span class="fstat-no" title="function not covered" >ButtonSumbit(</span>) {
+<span class="cstat-no" title="statement not covered" >    return(</span>
   &lt;div&gt;
     &lt;button
       type="submit"
@@ -308,8 +308,8 @@ function ButtonSumbit() {
 }
 &nbsp;
 &nbsp;
-function IconsFood() {
-    return(
+function <span class="fstat-no" title="function not covered" >IconsFood(</span>) {
+<span class="cstat-no" title="statement not covered" >    return(</span>
   &lt;div&gt;
     &lt;figure className="pt-10 mx-auto h-15 w-auto"&gt;
       &lt;img src="src\assets\icons_food.png"&gt;&lt;/img&gt;
@@ -325,7 +325,7 @@ export { Logo, InputEmail, InputPassword, ButtonSumbit, IconsFood };</pre></td><
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-11T16:07:28.203Z
+                at 2023-07-11T21:38:43.883Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
