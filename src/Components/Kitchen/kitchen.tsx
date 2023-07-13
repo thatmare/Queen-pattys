@@ -1,13 +1,20 @@
 import { Logo } from "../Login/Login.components.tsx";
 import { getOrders } from "../../Services/getOrders.tsx";
+import { patchOrders } from "../../Services/patchOrders.tsx";
 import { useState, useEffect } from "react";
 
 interface Order {
   id: number;
+  client: string;
+  status: string;
+  dataEntry: string;
   products: {
     qty: number;
     product: {
       name: string;
+      price: number;
+      type: string;
+      dataEntry: string;
     };
   }[];
 }
@@ -60,7 +67,8 @@ export function Kitchen() {
             <div className="flex flex-row-reverse ">
               <button
                 type="button"
-                className="font-medium text-black rounded-md bg-celadon p-2  "
+                className="font-medium text-black rounded-md bg-celadon p-2"
+                onClick={() => patchOrders(order.id)}
               >
                 Completado
               </button>

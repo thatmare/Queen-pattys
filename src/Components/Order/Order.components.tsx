@@ -144,10 +144,10 @@ function OrderSum({
             type: menuItem?.type, // obtener de la API
             dataEntry: new Date(),
           },
-          status: "pending",
-          dataEntry: new Date(),
         };
       }),
+      status: "pending",
+      dataEntry: new Date()
     };
 
     postOrders(order)
