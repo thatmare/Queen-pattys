@@ -4,29 +4,10 @@ import { render, fireEvent, screen, waitFor  } from "@testing-library/react";
 import { it, expect, describe } from "@jest/globals";
 import { MemoryRouter } from "react-router-dom";
 import { loginAPI } from "../Services/auth";
-// import fetchMock from "jest-fetch-mock";
 
-// jest.mock("../Services/auth.tsx", () => ({
-//   loginAPI: jest.fn()
-// }));
-// const logingAPIMock = loginAPI as jest.MockedFunction<typeof loginAPI>;
-
-// global.fetch = jest.fn(() =>
-//   Promise.resolve({
-//     json: () => Promise.resolve({}),
-//   }),
-// )
-
-
+loginAPI = jest.fn();
 
 describe("Login", () => {
-  // beforeAll(() => {
-  //   fetchMock.enableMocks();
-  // });
-
-  // beforeEach(() => {
-  //   fetchMock.resetMocks();
-  // });
 
   it("Renders Login component", () => {
     render(
@@ -37,7 +18,7 @@ describe("Login", () => {
     expect(Login).toBeTruthy();
   });
 
-  it.only("User login with incorrect credentials", async () => {
+  it("User login with incorrect credentials", async () => {
     global.fetch = jest.fn().mockImplementation(() => Promise.resolve())
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.reject('Error grave'))
 
@@ -61,6 +42,9 @@ describe("Login", () => {
   });
 
   it("The user login with the correct credentials", async () => {
+
+
+
     render(
       <MemoryRouter>
         <Login />
