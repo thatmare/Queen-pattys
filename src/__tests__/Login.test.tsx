@@ -6,10 +6,18 @@ import { MemoryRouter } from "react-router-dom";
 import { loginAPI } from "../Services/auth";
 // import fetchMock from "jest-fetch-mock";
 
-jest.mock("../Services/auth.tsx", () => ({
-  loginAPI: jest.fn()
-}));
-const logingAPIMock = loginAPI as jest.MockedFunction<typeof loginAPI>;
+// jest.mock("../Services/auth.tsx", () => ({
+//   loginAPI: jest.fn()
+// }));
+// const logingAPIMock = loginAPI as jest.MockedFunction<typeof loginAPI>;
+
+// global.fetch = jest.fn(() =>
+//   Promise.resolve({
+//     json: () => Promise.resolve({}),
+//   }),
+// )
+
+
 
 describe("Login", () => {
   // beforeAll(() => {
@@ -30,7 +38,8 @@ describe("Login", () => {
   });
 
   it.only("User login with incorrect credentials", async () => {
-    logingAPIMock.mockRejectedValue(Error ("Error al iniciar sesión. Por favor, verifica tus credenciales"));
+    global.fetch = jest.fn().mockImplementation(() => Promise.resolve())
+    jest.spyOn(global, 'fetch').mockImplementation(() => Promise.reject('Error grave'))
 
     render(
       <MemoryRouter>
@@ -45,16 +54,10 @@ describe("Login", () => {
     fireEvent.change(usernameInput, { target: { value: "incorrectUser" } });
     fireEvent.change(passwordInput, { target: { value: "incorrectPassword" } });
     fireEvent.submit(submitButton);
-    //user evento
-    //wait for
     
     await waitFor(() => {
-      // expect(logingAPIMock).rejects.toThrow("Invalid aguacate");
       expect(screen.getByText("Error al iniciar sesión. Por favor, verifica tus credenciales")).toBeInTheDocument();
     })
-
-    
-    // screen.debug()
   });
 
   it("The user login with the correct credentials", async () => {

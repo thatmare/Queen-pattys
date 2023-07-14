@@ -2,8 +2,8 @@ import { Logo } from "../Login/Login.components.tsx";
 import { getOrders } from "../../Services/getOrders.tsx";
 import { patchOrders } from "../../Services/patchOrders.tsx";
 import { useState, useEffect, Fragment, useRef } from "react";
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { Dialog, Transition } from "@headlessui/react";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 interface Order {
   id: number;
@@ -21,14 +21,27 @@ interface Order {
   }[];
 }
 
-function Modal({ selectedOrderID, onClose, onCompleted } : { selectedOrderID: number | null; onClose: () => void; onCompleted: (orderID: number) => void; }) {
+function Modal({
+  selectedOrderID,
+  onClose,
+  onCompleted,
+}: {
+  selectedOrderID: number;
+  onClose: () => void;
+  onCompleted: (orderID: number) => void;
+}) {
   const [open, setOpen] = useState(true);
 
   const cancelButtonRef = useRef(null);
 
   return (
     <Transition.Root show={open && selectedOrderID !== null} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        initialFocus={cancelButtonRef}
+        onClose={setOpen}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -56,16 +69,23 @@ function Modal({ selectedOrderID, onClose, onCompleted } : { selectedOrderID: nu
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                      <ExclamationTriangleIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
+                      <ExclamationTriangleIcon
+                        className="h-6 w-6 text-red-600"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-base font-semibold leading-6 text-gray-900"
+                      >
                         Deactivate account
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Are you sure you want to deactivate your account? All of your data will be permanently
-                          removed. This action cannot be undone.
+                          Are you sure you want to deactivate your account? All
+                          of your data will be permanently removed. This action
+                          cannot be undone.
                         </p>
                       </div>
                     </div>
@@ -76,11 +96,11 @@ function Modal({ selectedOrderID, onClose, onCompleted } : { selectedOrderID: nu
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                     onClick={() => {
-                      onCompleted(selectedOrderID); 
-                      onClose()
+                      onCompleted(selectedOrderID);
+                      onClose();
                     }}
                   >
-                    Completado
+                    Confirmar
                   </button>
                   <button
                     type="button"
@@ -88,7 +108,7 @@ function Modal({ selectedOrderID, onClose, onCompleted } : { selectedOrderID: nu
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >
-                    Cancel
+                    Cancelar
                   </button>
                 </div>
               </Dialog.Panel>
@@ -97,18 +117,19 @@ function Modal({ selectedOrderID, onClose, onCompleted } : { selectedOrderID: nu
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }
 
 export function Kitchen() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrderID, setSelectedOrderID] = useState<number | null>(null);
-  const kitchenOrders = orders;
+  const kitchenOrders = orders.filter((o) => o.status === "pending");
+  console.log(kitchenOrders, "AQUI KITCHEN ORDERS");
 
   useEffect(() => {
     getOrders()
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setOrders(data);
       })
       .catch((error) => {
@@ -119,11 +140,11 @@ export function Kitchen() {
   function handleOrderCompleted(orderID: number) {
     patchOrders(orderID)
       .then(() => {
-        setOrders(o => o.filter(order => order.id !== orderID))
+        setOrders((o) => o.filter((order) => order.id !== orderID));
       })
-      .catch(error => {
-        console.error(error)
-      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -160,19 +181,24 @@ export function Kitchen() {
               <button
                 type="button"
                 className="font-medium text-black rounded-md bg-celadon p-2"
-                onClick={ () => setSelectedOrderID(order.id)}
+                onClick={() => setSelectedOrderID(order.id)}
               >
                 Completado
               </button>
             </div>
-            <Modal
-              selectedOrderID={selectedOrderID}
-              onClose={() => setSelectedOrderID(null)}
-              onCompleted={handleOrderCompleted}></Modal>
           </div>
           <br />
         </div>
       ))}
+      <>
+        {selectedOrderID !== null && (
+          <Modal
+            selectedOrderID={selectedOrderID}
+            onClose={() => setSelectedOrderID(null)}
+            onCompleted={handleOrderCompleted}
+          ></Modal>
+        )}
+      </>
     </section>
   );
 }
