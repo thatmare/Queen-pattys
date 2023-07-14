@@ -142,12 +142,12 @@ function OrderSum({
             name: itemName,
             price: menuItem?.price, // obtener precio de la API
             type: menuItem?.type, // obtener de la API
-            dataEntry: new Date(),
+            dataEntry: new Date().toLocaleString(),
           },
         };
       }),
       status: "pending",
-      dataEntry: new Date()
+      dataEntry: new Date().toLocaleTimeString(),
     };
 
     postOrders(order)
