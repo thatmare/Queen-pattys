@@ -21,6 +21,7 @@ interface Order {
   }[];
 }
 
+
 function Modal({
   selectedOrderID,
   onClose,
@@ -119,6 +120,9 @@ function Modal({
 }
 
 export function Kitchen() {
+
+
+  
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrderID, setSelectedOrderID] = useState<number | null>(null);
   const kitchenOrders = orders.filter((o) => o.status === "pending");
@@ -144,6 +148,8 @@ export function Kitchen() {
         console.error(error);
       });
   }
+   
+ 
 
   return (
     <section className="flex flex-col justify-evenly items-start bg-gunMetal min-h-screen min-w-fit max-w-screen">
@@ -158,7 +164,7 @@ export function Kitchen() {
                   <h3>
                     <a href="#">Orden ID: {order.id}</a>
                   </h3>
-                  <p className="ml-4 text-yellowTimer">Time 00:00</p>
+                  <p className="ml-4 text-yellowTimer">Hora de pedido: {order.dataEntry}</p>
                 </div>
               </div>
               {/* empieza mapeo para insertar name ?? */}
