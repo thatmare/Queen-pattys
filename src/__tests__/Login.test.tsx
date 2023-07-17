@@ -1,13 +1,23 @@
 import { Login } from "../Components/Login/Login.tsx";
 import { render, fireEvent, screen, waitFor  } from "@testing-library/react";
-// import userEvent  from "@testing-library/user-event";
 import { it, expect, describe } from "@jest/globals";
 import { MemoryRouter } from "react-router-dom";
-import { loginAPI } from "../Services/auth";
+import * as auth from "../Services/auth";
+import fetchMock from "jest-fetch-mock";
 
-loginAPI = jest.fn();
+// jest.mock("../Services/auth", () => ({
+//   loginAPI: jest.fn(),
+// }));
 
 describe("Login", () => {
+
+  beforeAll(() => {
+    fetchMock.enableMocks();
+  });
+
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
 
   it("Renders Login component", () => {
     render(
@@ -16,6 +26,31 @@ describe("Login", () => {
       </MemoryRouter>
     );
     expect(Login).toBeTruthy();
+  });
+
+  it("The user login with the correct credentials", async () => {
+   
+    const loginAPISpy = jest.spyOn(auth, 'loginAPI');
+    
+    
+    render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>
+    );
+
+    const usernameInput = screen.getByLabelText("Usuaria/o");
+    const passwordInput = screen.getByLabelText("Contraseña");
+    const submitButton = screen.getByText("Ingresa");
+
+    fireEvent.change(usernameInput, { target: { value: "usuario" } });
+    fireEvent.change(passwordInput, { target: { value: "contraseña" } });
+    fireEvent.submit(submitButton);
+
+
+    await waitFor(() => {
+      expect(loginAPISpy).toHaveBeenCalled();
+    });
   });
 
   it("User login with incorrect credentials", async () => {
@@ -39,26 +74,5 @@ describe("Login", () => {
     await waitFor(() => {
       expect(screen.getByText("Error al iniciar sesión. Por favor, verifica tus credenciales")).toBeInTheDocument();
     })
-  });
-
-  it("The user login with the correct credentials", async () => {
-
-
-
-    render(
-      <MemoryRouter>
-        <Login />
-      </MemoryRouter>
-    );
-
-    const usernameInput = screen.getByLabelText("Usuaria/o");
-    const passwordInput = screen.getByLabelText("Contraseña");
-    const submitButton = screen.getByText("Ingresa");
-
-    fireEvent.change(usernameInput, { target: { value: "usuario" } });
-    fireEvent.change(passwordInput, { target: { value: "contraseña" } });
-    fireEvent.submit(submitButton);
-
-    expect(loginAPI).toHaveBeenCalled();
   });
 });

@@ -13,5 +13,3 @@ export function getOrders() {
         console.error('Error fetching products:', error)
     })
 }
-
-getOrders()
