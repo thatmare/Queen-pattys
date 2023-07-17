@@ -2,8 +2,9 @@ import { Logo } from "../Login/Login.components.tsx";
 import { getOrders } from "../../Services/getOrders.tsx";
 import { patchOrders } from "../../Services/patchOrders.tsx";
 import { useState, useEffect, Fragment, useRef } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition, Disclosure } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router";
 
 interface Order {
   id: number;
@@ -19,6 +20,51 @@ interface Order {
       dataEntry: string;
     };
   }[];
+}
+
+export function Navbar() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    if (localStorage.getItem("token") === null) {
+      navigate("/");
+    }
+  };
+
+  return (
+    <Disclosure as="nav" className="bg-gunMetal border-b border-kitchenText">
+      {() => (
+        <>
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="relative flex h-16 items-center justify-between">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button
+                  type="button"
+                  className="rounded-full p-1 bg-gunMetal text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 w-7 h-7"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <img
+                    src="src\assets\icon_notification_.png"
+                    alt="Notification icon"
+                  />
+                </button>
+              </div>
+              <div className="flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button
+                  className="rounded-full p-1 bg-gunMetal text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 w-8 h-8 mt-2"
+                  type="button"
+                  onClick={handleLogout}
+                >
+                  <span className="sr-only">Log out</span>
+                  <img src="src\assets\icon _logout_.png" alt="Log out icon" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </Disclosure>
+  );
 }
 
 function Modal({
@@ -149,59 +195,62 @@ export function Kitchen() {
   }, []);
 
   return (
-    <section className="flex flex-col justify-evenly items-start bg-gunMetal min-h-screen min-w-fit max-w-screen">
-      <Logo />
+    <>
+      <Navbar />
+      <section className="flex flex-col justify-evenly items-start bg-gunMetal min-h-screen min-w-fit max-w-screen">
+        <Logo />
 
-      {kitchenOrders.map((order) => (
-        <div className="w-screen" key={order.id}>
-          <div className="bg-blackInput rounded-3xl  max-w-screen m-6 border-3 border-teal-200 p-4">
-            <div className="ml-4 flex flex-1 flex-col">
-              <div>
-                <div className="flex justify-between text-base font-medium text-kitchenText">
-                  <h3>
-                    <a href="#">Orden ID: {order.id}</a>
-                  </h3>
-                  <p className="ml-4 text-yellowTimer">
-                    Hora de pedido: {order.dataEntry}
-                  </p>
+        {kitchenOrders.map((order) => (
+          <div className="w-screen" key={order.id}>
+            <div className="bg-blackInput rounded-3xl  max-w-screen m-6 border-3 border-teal-200 p-4">
+              <div className="ml-4 flex flex-1 flex-col">
+                <div>
+                  <div className="flex justify-between text-base font-medium text-kitchenText">
+                    <h3>
+                      <a href="#">Orden ID: {order.id}</a>
+                    </h3>
+                    <p className="ml-4 text-yellowTimer">
+                      Hora de pedido: {order.dataEntry}
+                    </p>
+                  </div>
                 </div>
+                {/* empieza mapeo para insertar name ?? */}
+                {order.products.map((element, index) => (
+                  <div
+                    className="flex flex-1 items-end justify-between text-sm"
+                    key={index}
+                  >
+                    <p className="mt-1 text-sm text-kitchenText">
+                      {element.product.name} x{element.qty}
+                    </p>
+                  </div>
+                ))}
+                {/* termina para insertar qty */}
               </div>
-              {/* empieza mapeo para insertar name ?? */}
-              {order.products.map((element, index) => (
-                <div
-                  className="flex flex-1 items-end justify-between text-sm"
-                  key={index}
-                >
-                  <p className="mt-1 text-sm text-kitchenText">
-                    {element.product.name} x{element.qty}
-                  </p>
-                </div>
-              ))}
-              {/* termina para insertar qty */}
-            </div>
 
-            <div className="flex flex-row-reverse ">
-              <button
-                type="button"
-                className="font-medium text-gunMetal rounded-md bg-celadon p-2"
-                onClick={() => setSelectedOrderID(order.id)}
-              >
-                Completado
-              </button>
+              <div className="flex flex-row-reverse ">
+                <button
+                  type="button"
+                  className="font-medium text-gunMetal rounded-md bg-celadon p-2"
+                  onClick={() => setSelectedOrderID(order.id)}
+                >
+                  Completado
+                </button>
+              </div>
             </div>
+            <br />
           </div>
-          <br />
-        </div>
-      ))}
-      <>
-        {selectedOrderID !== null && (
-          <Modal
-            selectedOrderID={selectedOrderID}
-            onClose={() => setSelectedOrderID(null)}
-            onCompleted={handleOrderCompleted}
-          ></Modal>
-        )}
-      </>
-    </section>
+        ))}
+        <>
+          {selectedOrderID !== null && (
+            <Modal
+              selectedOrderID={selectedOrderID}
+              onClose={() => setSelectedOrderID(null)}
+              onCompleted={handleOrderCompleted}
+            ></Modal>
+          )}
+        </>
+      </section>
+    </>
   );
 }

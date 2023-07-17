@@ -1,20 +1,14 @@
 import { MenuBtn, FoodItems, Client, OrderSum } from "./Order.components.tsx";
 import { useEffect, useState } from "react";
 import { Logo } from "../Login/Login.components";
-import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "../../Services/getProducts.tsx";
+import { Navbar } from "../Kitchen/Kitchen.tsx";
 
 function Breakfast() {
   const [products, setProducts] = useState([]);
   const [counters, setCounters] = useState<{ [key: string]: number }>({});
   const [selectedClient, setSelectedClient] = useState("");
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    if (localStorage.getItem("token") === null) {
-      navigate("/");
-    }
-  };
+
   const handleOrderSubmit = () => {
     setCounters({});
   };
@@ -33,14 +27,9 @@ function Breakfast() {
   }, []);
 
   return (
+    <>
+    <Navbar></Navbar>
     <section className=" bg-gunMetal min-h-screen min-w-fit flex flex-col justify-center items-center">
-      <button
-        type="button"
-        className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-        onClick={handleLogout}
-      >
-        X<span className="sr-only">Close panel</span>
-      </button>
       <Logo></Logo>
       <div className="flex justify-center items-center w-4/6 md:w-4/5 lg:w-3/5">
         <MenuBtn meals={desayunoItems}></MenuBtn>
@@ -65,6 +54,7 @@ function Breakfast() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 
