@@ -1,8 +1,6 @@
 
-
-const token = localStorage.getItem('token');
-
 export function fetchProducts () {
+    const token = localStorage.getItem('token');
     return fetch('http://localhost:8080/products', {
         headers: {
         Authorization: `Bearer ${token}`,

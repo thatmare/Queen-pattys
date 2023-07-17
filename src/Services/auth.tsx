@@ -1,8 +1,9 @@
 // import { Navigate} from "react-router-dom";
 
-let token = '';
+
 
 export function loginAPI (options: object, setError:(error:string) => void) {
+    let token = '';
 
     return fetch('http://localhost:8080/login', options)
         .then(response => {
