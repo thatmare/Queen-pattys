@@ -37,7 +37,7 @@ describe("Login", () => {
     expect(Login).toBeTruthy();
   });
 
-  it.only("User login with incorrect credentials", async () => {
+  it("User login with incorrect credentials", async () => {
     global.fetch = jest.fn().mockImplementation(() => Promise.resolve())
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.reject('Error grave'))
 
