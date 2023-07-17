@@ -128,7 +128,7 @@ export function Kitchen() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrderID, setSelectedOrderID] = useState<number | null>(null);
   const kitchenOrders = orders.filter((o) => o.status === "pending");
-  console.log(kitchenOrders, "AQUI KITCHEN ORDERS");
+  //console.log(kitchenOrders, "AQUI KITCHEN ORDERS");
 
   useEffect(() => {
     getOrders()
