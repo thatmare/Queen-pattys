@@ -1,6 +1,7 @@
-const token = localStorage.getItem('token');
+
      
 export function postOrders(order: object) {
+    const token = localStorage.getItem('token');
     return fetch('http://localhost:8080/orders', {
         method: 'POST',
         headers: {

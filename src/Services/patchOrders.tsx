@@ -1,6 +1,6 @@
-const token = localStorage.getItem('token');
-     
+
 export function patchOrders(id: number) {
+    const token = localStorage.getItem('token');
     return fetch(`http://localhost:8080/orders/${id}`, {
         method: 'PATCH',
         headers: {

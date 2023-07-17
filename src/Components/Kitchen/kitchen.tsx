@@ -21,7 +21,6 @@ interface Order {
   }[];
 }
 
-
 function Modal({
   selectedOrderID,
   onClose,
@@ -93,21 +92,21 @@ function Modal({
                 <div className="bg-gunMetal px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-greenConfirm px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={() => {
                       onCompleted(selectedOrderID);
                       onClose();
                     }}
                   >
-                    Cancelar
+                    Confirmar
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-greenConfirm px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpen(false)}
+                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto mr-6"
+                    onClick={() => onClose()}
                     ref={cancelButtonRef}
                   >
-                    Confirmar
+                    Cancelar
                   </button>
                 </div>
               </Dialog.Panel>
@@ -120,36 +119,34 @@ function Modal({
 }
 
 export function Kitchen() {
-
-
-  
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrderID, setSelectedOrderID] = useState<number | null>(null);
   const kitchenOrders = orders.filter((o) => o.status === "pending");
-  //console.log(kitchenOrders, "AQUI KITCHEN ORDERS");
+  // console.log(kitchenOrders, "AQUI KITCHEN ORDERS");
 
-  useEffect(() => {
+  function handleOrders() {
     getOrders()
       .then((data) => {
-        // console.log(data);
         setOrders(data);
       })
       .catch((error) => {
         console.error("ERROR DE GET ORDERS", error);
       });
-  }, []);
+  }
 
   function handleOrderCompleted(orderID: number) {
     patchOrders(orderID)
       .then(() => {
-        setOrders((o) => o.filter((order) => order.id !== orderID));
+        handleOrders();
       })
       .catch((error) => {
-        console.error(error);
+        console.error("ERROR DE PATCH ORDERS", error);
       });
   }
-   
- 
+
+  useEffect(() => {
+    handleOrders();
+  }, []);
 
   return (
     <section className="flex flex-col justify-evenly items-start bg-gunMetal min-h-screen min-w-fit max-w-screen">
@@ -164,7 +161,9 @@ export function Kitchen() {
                   <h3>
                     <a href="#">Orden ID: {order.id}</a>
                   </h3>
-                  <p className="ml-4 text-yellowTimer">Hora de pedido: {order.dataEntry}</p>
+                  <p className="ml-4 text-yellowTimer">
+                    Hora de pedido: {order.dataEntry}
+                  </p>
                 </div>
               </div>
               {/* empieza mapeo para insertar name ?? */}
