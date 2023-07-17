@@ -15,6 +15,7 @@ export default {
         strokeInput: '#D4C5C5',
         yellowTimer: '#CBB978',
         kitchenText: '#D4C5C5',
+        greenConfirm: '#67BC99'
       },
     },
   },

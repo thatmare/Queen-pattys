@@ -1,8 +1,9 @@
 // import { Navigate} from "react-router-dom";
 
-let token = '';
 
-export function loginAPI (options: object, setError:(error:string) => any) {
+
+export function loginAPI (options: object, setError:(error:string) => void) {
+    let token = '';
 
     return fetch('http://localhost:8080/login', options)
         .then(response => {
@@ -19,8 +20,9 @@ export function loginAPI (options: object, setError:(error:string) => any) {
             // Aquí puedes realizar acciones adicionales con el token
         })
         .catch(error => {
+            console.error(error)
             setError('Error al iniciar sesión. Por favor, verifica tus credenciales')
-            throw error;
+            // throw error;
         });
 }
 
