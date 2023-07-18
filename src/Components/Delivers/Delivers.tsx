@@ -1,11 +1,11 @@
 import { Logo } from "../Login/Login.components.tsx";
 import { getOrders } from "../../Services/getOrders.tsx";
-import { patchOrders } from "../../Services/patchOrders.tsx";
+import { patchDelivers } from "../../Services/patchDelivers.tsx";
 import { useState, useEffect, Fragment, useRef } from "react";
 import { Dialog, Transition} from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router";
-import { Navbar } from "../Navbar/Navbar.tsx";
+import { DeliversNavbar } from "../Navbar/DeliversNavbar.tsx";
 
 interface Order {
   id: number;
@@ -85,7 +85,7 @@ function Modal({
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-white">
-                          ¿Confirmas que el pedido ha sido completado?
+                          ¿Confirmas que el pedido ha sido entregado?
                         </p>
                       </div>
                     </div>
@@ -120,13 +120,12 @@ function Modal({
   );
 }
 
-export function Kitchen() {
+export function Delivers() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrderID, setSelectedOrderID] = useState<number | null>(null);
-  const kitchenOrders = orders.filter((o) => o.status === "pending");
-  // console.log(kitchenOrders, "AQUI KITCHEN ORDERS");
+  const kitchenOrders = orders.filter((o) => o.status === "Delivering");
+//   console.log(kitchenOrders, "AQUI KITCHEN ORDERS DELIVERING");
   const navigate = useNavigate();
-  
   const handleLogout = () => {
     localStorage.removeItem("token");
     if (localStorage.getItem("token") === null) {
@@ -145,7 +144,7 @@ export function Kitchen() {
   }
 
   function handleOrderCompleted(orderID: number) {
-    patchOrders(orderID)
+    patchDelivers(orderID)
       .then(() => {
         handleOrders();
       })
@@ -154,13 +153,17 @@ export function Kitchen() {
       });
   }
 
+  function returns(){
+    navigate('/order')
+  }
+
   useEffect(() => {
     handleOrders();
   }, []);
 
   return (
     <>
-      <Navbar handleLogout={handleLogout}/>
+      <DeliversNavbar handleLogout={handleLogout} returns={returns} />
       <section className="flex flex-col justify-evenly items-start bg-gunMetal min-h-screen min-w-fit max-w-screen">
         <Logo />
 

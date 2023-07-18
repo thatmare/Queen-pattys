@@ -1,4 +1,4 @@
-import { Breakfast } from "../Components/Order/Breakfast";
+import { Breakfast } from "../Components/Order/Order";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 
