@@ -104,11 +104,11 @@ function Client({ setSelectedClient }: ClientProps) {
       name="mesas"
       id="mesas"
       onChange={handleClient}
-      className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4"
+      className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-lg m-4 py-2 p-2"
     >
-      <option value="NO CLIENT">Selecciona una mesa</option>
-      <option value="mesa1">Mesa 1</option>
-      <option value="mesa2">Mesa 2</option>
+      <option className="text-sm " value="NO CLIENT">Selecciona una mesa</option>
+      <option className="text-sm " value="mesa1">Mesa 1</option>
+      <option className="text-sm " value="mesa2">Mesa 2</option>
     </select>
   );
 }
@@ -118,7 +118,7 @@ function OrderSum({
   menuItems,
   selectedClient,
   onOrderSubmit,
-}: {
+} : {
   counters: { [key: string]: number };
   menuItems: MenuItem[];
   selectedClient: string;
