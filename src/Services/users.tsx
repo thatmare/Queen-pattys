@@ -16,6 +16,30 @@ function getUsers () {
     })
 }
 
+function patchUsers(id: number, email: string, password: string, role: string) {
+    const token = localStorage.getItem('token');
+    return fetch(`http://localhost:8080/users/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            email: email, 
+            password: password, 
+            role: role,
+        })
+    })
+    .then(response =>{
+        return response.json()
+    })
+    // .then(data => 
+    //     console.log(data, 'AQUI USUARIO EDITADO!!!! '))
+    .catch(error =>{
+        console.error('Error sending order:', error);
+    });
+}
+
 function deleteUsers(id: number) {
     const token = localStorage.getItem('token');
     return fetch(`http://localhost:8080/users/${id}`, {
@@ -33,6 +57,6 @@ function deleteUsers(id: number) {
     });
 }
 
-// deleteUsers(4)
+// patchUsers(10, 'mare@hotmail.com', '123456', 'admin')
 
-export { getUsers, deleteUsers }
+export { getUsers, patchUsers, deleteUsers }
