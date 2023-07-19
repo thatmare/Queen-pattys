@@ -201,7 +201,7 @@ export function Delivers() {
                   className="font-medium text-gunMetal rounded-md bg-celadon p-2"
                   onClick={() => setSelectedOrderID(order.id)}
                 >
-                  Completado
+                  Entregado
                 </button>
               </div>
             </div>
