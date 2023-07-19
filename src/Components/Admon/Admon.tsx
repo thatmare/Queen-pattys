@@ -40,6 +40,10 @@ export function Admon() {
     
   }
 
+  function holaMarissa() {
+    console.log("que tal, que tal?");
+  }
+
 
   useEffect(() => {
     handleUsers();
