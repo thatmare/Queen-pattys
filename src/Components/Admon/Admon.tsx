@@ -36,6 +36,11 @@ export function Admon() {
       });
   }
 
+  function handleEdit(userID: number) {
+    
+  }
+
+
   useEffect(() => {
     handleUsers();
   }, []);
@@ -44,7 +49,9 @@ export function Admon() {
     <>
       <AdmonNavbar handleLogout={handleLogout} />
       <section className="flex flex-col bg-gunMetal min-h-screen min-w-fit">
+        <div className="mt-10">
         <Logo />
+        </div>
         <UsersTable UsersItems={users} handleDelete={handleDelete}></UsersTable>
       </section>
     </>
