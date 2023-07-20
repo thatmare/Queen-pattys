@@ -4,6 +4,8 @@ import { AdmonNavbar } from "../Navbar/AdmonNavbar.tsx";
 import { useNavigate } from "react-router";
 import { getUsers, postUser, deleteUsers, patchUsers } from "../../Services/users.tsx";
 import { useState, useEffect } from "react";
+import { ProductsTable } from "./Products.components.tsx";
+import { fetchProducts } from "../../Services/getProducts";
 
 export function Admon() {
   const [users, setUsers] = useState([]);
@@ -35,8 +37,8 @@ export function Admon() {
         console.error("ERROR DE HANDLEDELETE", error);
       });
   }
-
-  function handleEdit(userID: number, email: string, password: string, role: string) {
+  
+    function handleEdit(userID: number, email: string, password: string, role: string) {
     patchUsers(userID, email, password, role)
       .then(() => {
         handleUsers();
@@ -56,6 +58,7 @@ export function Admon() {
       })
   }
 
+
   useEffect(() => {
     handleUsers();
   }, []);
@@ -67,7 +70,59 @@ export function Admon() {
         <div className="mt-10">
         <Logo />
         </div>
-        <UsersTable UsersItems={users} handleDelete={handleDelete} handleEditUser={handleEdit} handleAddUser={handleAddUser}></UsersTable>
+         <UsersTable UsersItems={users} handleDelete={handleDelete} handleEditUser={handleEdit} handleAddUser={handleAddUser}></UsersTable>
+      </section>
+    </>
+  );
+}
+
+export function AdmonProducts() {
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    if (localStorage.getItem("token") === null) {
+      navigate("/");
+    }
+  };
+
+  function handleProducts() {
+    fetchProducts()
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.error("ERROR DE HANDLEUSERS", error);
+      });
+  }
+
+  function handleDelete(userID: number) {
+    deleteUsers(userID)
+      .then(() => {
+        // handleUsers();
+      })
+      .catch((error) => {
+        console.error("ERROR DE HANDLEDELETE", error);
+      });
+
+
+
+  useEffect(() => {
+    handleProducts();
+  }, []);
+
+  return (
+    <>
+      <AdmonNavbar handleLogout={handleLogout} />
+      <section className="flex flex-col bg-gunMetal min-h-screen min-w-fit">
+        <div className="mt-10">
+          <Logo />
+        </div>
+
+        <ProductsTable handleDelete={handleDelete} ProductsItems={products}></ProductsTable>
+
+       
+
       </section>
     </>
   );

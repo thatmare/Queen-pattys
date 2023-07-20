@@ -35,7 +35,7 @@ function UsersTable({
 }) {
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [selectedUserEdit, setSelectedUserEdit] = useState<number | null>(null);
-  // console.log(selectedUser);
+
 
   return (
     <div className="mx-auto pt-12 ">
