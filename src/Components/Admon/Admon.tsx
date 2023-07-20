@@ -6,6 +6,7 @@ import { getUsers, deleteUsers, patchUsers } from "../../Services/users.tsx";
 import { useState, useEffect } from "react";
 
 export function Admon() {
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -14,7 +15,6 @@ export function Admon() {
     }
   };
 
-  const [users, setUsers] = useState([]);
   console.log(users, 'aqui users admon.tsx')
   function handleUsers() {
     getUsers()
