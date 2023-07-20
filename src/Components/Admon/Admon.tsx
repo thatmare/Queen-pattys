@@ -2,12 +2,13 @@ import { Logo } from "../Login/Login.components.tsx";
 import { UsersTable } from "./Users.components";
 import { AdmonNavbar } from "../Navbar/AdmonNavbar.tsx";
 import { useNavigate } from "react-router";
-import { getUsers, deleteUsers } from "../../Services/getUsers";
+import { getUsers, postUser, deleteUsers, patchUsers } from "../../Services/users.tsx";
 import { useState, useEffect } from "react";
 import { ProductsTable } from "./Products.components.tsx";
 import { fetchProducts } from "../../Services/getProducts";
 
 export function Admon() {
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -16,8 +17,7 @@ export function Admon() {
     }
   };
 
-  const [users, setUsers] = useState([]);
-
+  console.log(users, 'aqui users admon.tsx')
   function handleUsers() {
     getUsers()
       .then((data) => {
@@ -37,6 +37,26 @@ export function Admon() {
         console.error("ERROR DE HANDLEDELETE", error);
       });
   }
+  
+    function handleEdit(userID: number, email: string, password: string, role: string) {
+    patchUsers(userID, email, password, role)
+      .then(() => {
+        handleUsers();
+      })
+      .catch((error) => {
+        console.error('ERROR DE HANDLEEDIT', error)
+      })
+  }
+
+  function handleAddUser(email: string, password: string, role: string) {
+    postUser(email, password, role)
+      .then(() => {
+        handleUsers();
+      })
+      .catch((error) => {
+        console.error('AQUI ERROR DE HANDLEADD', error)
+      })
+  }
 
 
   useEffect(() => {
@@ -50,7 +70,7 @@ export function Admon() {
         <div className="mt-10">
         <Logo />
         </div>
-        <UsersTable UsersItems={users} handleDelete={handleDelete}></UsersTable>
+         <UsersTable UsersItems={users} handleDelete={handleDelete} handleEditUser={handleEdit} handleAddUser={handleAddUser}></UsersTable>
       </section>
     </>
   );
@@ -84,7 +104,8 @@ export function AdmonProducts() {
       .catch((error) => {
         console.error("ERROR DE HANDLEDELETE", error);
       });
-  }
+
+
 
   useEffect(() => {
     handleProducts();
@@ -97,7 +118,11 @@ export function AdmonProducts() {
         <div className="mt-10">
           <Logo />
         </div>
+
         <ProductsTable handleDelete={handleDelete} ProductsItems={products}></ProductsTable>
+
+       
+
       </section>
     </>
   );
