@@ -21,7 +21,7 @@ export function Admon() {
       navigate("/");
     }
   };
-
+  const [errorAdd, setErrorAdd] = useState('')
   console.log(users, "aqui users admon.tsx");
   function handleUsers() {
     getUsers()
@@ -59,10 +59,21 @@ export function Admon() {
   }
 
   function handleAddUser(email: string, password: string, role: string) {
+
     postUser(email, password, role)
-      .then(() => {
+    .then((data) => {
+      console.log(data, 'aqui data') // en data está el mensaje de error como string
+      if(data === 'Email and password are required') {
+        setErrorAdd('Correo y contraseña son requeridos.')
+      } else if (data === 'Password is too short') {
+        setErrorAdd('La contraseña es muy corta.')
+      } else if (data === 'Email already exists') {
+        setErrorAdd('El correo ya está en uso.')
+      } else {
+        setErrorAdd('');
         handleUsers();
-      })
+      }
+    })
       .catch((error) => {
         console.error("AQUI ERROR DE HANDLEADD", error);
       });
@@ -84,6 +95,7 @@ export function Admon() {
           handleDelete={handleDelete}
           handleEditUser={handleEdit}
           handleAddUser={handleAddUser}
+          error={errorAdd}
         ></UsersTable>
       </section>
     </>
