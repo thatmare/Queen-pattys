@@ -17,11 +17,17 @@ function UsersTable({
   UsersItems,
   handleDelete,
   handleEditUser,
+  handleAddUser
 }: {
   UsersItems: Users["UsersItems"];
   handleDelete: (id: number) => void;
   handleEditUser: (
     id: number,
+    email: string,
+    password: string,
+    role: string
+  ) => void;
+  handleAddUser: (
     email: string,
     password: string,
     role: string
@@ -33,7 +39,7 @@ function UsersTable({
 
   return (
     <div className="mx-auto pt-12 ">
-      <AddUser></AddUser>
+      <AddUser handleAddUser={handleAddUser}/>
       <div className="rounded-xl overflow-hidden outline-4 outline outline-kitchenText ">
         <table className=" bg-blackInput   table-fixed">
           <thead>
@@ -92,40 +98,34 @@ function UsersTable({
   );
 }
 
-function AddUser() {
+function AddUser({ handleAddUser } : {handleAddUser: (email: string, password: string, role: string) => void}) {
+  const [openAdd, setOpenAdd] = useState(false);
+
   return (
     <div className="flex flex-row-reverse">
-      <button className="outline outline-2 outline-kitchenText rounded-lg md:w-20 md:h-12 m-5 text-6xl flex flex-col justify-center items-center mr-1">
+      <button className="outline outline-2 outline-kitchenText rounded-lg md:w-20 md:h-12 m-5 text-6xl flex flex-col justify-center items-center mr-1" onClick={() => setOpenAdd(true)}>
         +
       </button>
+      <>
+      {openAdd && (
+        <AddUserModal 
+        onClose={() => setOpenAdd(false)} 
+        onSubmit={handleAddUser}
+        />)}
+      </>
     </div>
   )
 }
 
-function AddUserModal({
-  selectedUserEdit,
-  onClose,
-  onSubmit,
-  UsersItems,
-}: {
-  selectedUserEdit: number;
-  onClose: () => void;
-  onSubmit: (selectedUserEdit: number, email: string, password: string, role: string) => void;
-  UsersItems: Users["UsersItems"];
-}) {
-  const selectedUser = UsersItems.find(u => u.id === selectedUserEdit);
+function AddUserModal({ onClose, onSubmit } : { onClose: () => void; onSubmit: (email: string, password: string, role: string) => void }) {
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
 
-  if (!selectedUser) {
-    return null;
-  }
-
   return (
-    <Transition.Root show={open && selectedUserEdit !== null} as={Fragment}>
+    <Transition.Root show={open !== null} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-10"
@@ -169,7 +169,7 @@ function AddUserModal({
                         as="h2"
                         className="text-base font-semibold leading-6 text-kitchenText mt-2"
                       >
-                        Usuarix ID {selectedUserEdit}
+                        
                       </Dialog.Title>
                       
                         <div className="mt-2">
@@ -177,7 +177,7 @@ function AddUserModal({
                             <label className="text-sm text-white">Correo</label>
                             <input
                               type="email"
-                              placeholder={selectedUser.email}
+                              placeholder="Correo electrónico"
                               onChange={(e) => setEmail(e.target.value)}
                               className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 mb-5 text-sm text-black"
                             />
@@ -186,14 +186,14 @@ function AddUserModal({
                             </label>
                             <input
                               type="password"
-                              placeholder={selectedUser.password}
+                              placeholder="Contraseña"
                               onChange={(e) => setPassword(e.target.value)}
                               className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 mb-5 text-sm text-black"
                             />
                             <label className="text-sm text-white">Rol</label>
                             <input
                               type="text"
-                              placeholder={selectedUser.role}
+                              placeholder="Rol"
                               onChange={(e) => setRole(e.target.value)}
                               className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 mb-5 text-sm text-black"
                             />
@@ -208,11 +208,11 @@ function AddUserModal({
                     type="submit"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-greenConfirm px-6 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={() => {
-                      onSubmit(selectedUserEdit, email, password, role);
+                      onSubmit(email, password, role);
                       onClose();
                     }}
                   >
-                    Editar
+                    Crear
                   </button>
                   <button
                     type="button"

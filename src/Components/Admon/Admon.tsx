@@ -2,7 +2,7 @@ import { Logo } from "../Login/Login.components.tsx";
 import { UsersTable } from "./Users.components";
 import { AdmonNavbar } from "../Navbar/AdmonNavbar.tsx";
 import { useNavigate } from "react-router";
-import { getUsers, deleteUsers, patchUsers } from "../../Services/users.tsx";
+import { getUsers, postUser, deleteUsers, patchUsers } from "../../Services/users.tsx";
 import { useState, useEffect } from "react";
 
 export function Admon() {
@@ -46,6 +46,16 @@ export function Admon() {
       })
   }
 
+  function handleAddUser(email: string, password: string, role: string) {
+    postUser(email, password, role)
+      .then(() => {
+        handleUsers();
+      })
+      .catch((error) => {
+        console.error('AQUI ERROR DE HANDLEADD', error)
+      })
+  }
+
   useEffect(() => {
     handleUsers();
   }, []);
@@ -57,7 +67,7 @@ export function Admon() {
         <div className="mt-10">
         <Logo />
         </div>
-        <UsersTable UsersItems={users} handleDelete={handleDelete} handleEditUser={handleEdit}></UsersTable>
+        <UsersTable UsersItems={users} handleDelete={handleDelete} handleEditUser={handleEdit} handleAddUser={handleAddUser}></UsersTable>
       </section>
     </>
   );
