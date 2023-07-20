@@ -2,7 +2,12 @@ import { Logo } from "../Login/Login.components.tsx";
 import { UsersTable } from "./Users.components";
 import { AdmonNavbar } from "../Navbar/AdmonNavbar.tsx";
 import { useNavigate } from "react-router";
-import { getUsers, postUser, deleteUsers, patchUsers } from "../../Services/users.tsx";
+import {
+  getUsers,
+  postUser,
+  deleteUsers,
+  patchUsers,
+} from "../../Services/users.tsx";
 import { useState, useEffect } from "react";
 import { ProductsTable } from "./Products.components.tsx";
 import { fetchProducts } from "../../Services/getProducts";
@@ -17,7 +22,7 @@ export function Admon() {
     }
   };
 
-  console.log(users, 'aqui users admon.tsx')
+  console.log(users, "aqui users admon.tsx");
   function handleUsers() {
     getUsers()
       .then((data) => {
@@ -37,15 +42,20 @@ export function Admon() {
         console.error("ERROR DE HANDLEDELETE", error);
       });
   }
-  
-    function handleEdit(userID: number, email: string, password: string, role: string) {
+
+  function handleEdit(
+    userID: number,
+    email: string,
+    password: string,
+    role: string
+  ) {
     patchUsers(userID, email, password, role)
       .then(() => {
         handleUsers();
       })
       .catch((error) => {
-        console.error('ERROR DE HANDLEEDIT', error)
-      })
+        console.error("ERROR DE HANDLEEDIT", error);
+      });
   }
 
   function handleAddUser(email: string, password: string, role: string) {
@@ -54,10 +64,9 @@ export function Admon() {
         handleUsers();
       })
       .catch((error) => {
-        console.error('AQUI ERROR DE HANDLEADD', error)
-      })
+        console.error("AQUI ERROR DE HANDLEADD", error);
+      });
   }
-
 
   useEffect(() => {
     handleUsers();
@@ -68,9 +77,14 @@ export function Admon() {
       <AdmonNavbar handleLogout={handleLogout} />
       <section className="flex flex-col bg-gunMetal min-h-screen min-w-fit">
         <div className="mt-10">
-        <Logo />
+          <Logo />
         </div>
-         <UsersTable UsersItems={users} handleDelete={handleDelete} handleEditUser={handleEdit} handleAddUser={handleAddUser}></UsersTable>
+        <UsersTable
+          UsersItems={users}
+          handleDelete={handleDelete}
+          handleEditUser={handleEdit}
+          handleAddUser={handleAddUser}
+        ></UsersTable>
       </section>
     </>
   );
@@ -104,8 +118,7 @@ export function AdmonProducts() {
       .catch((error) => {
         console.error("ERROR DE HANDLEDELETE", error);
       });
-
-
+  }
 
   useEffect(() => {
     handleProducts();
@@ -119,10 +132,10 @@ export function AdmonProducts() {
           <Logo />
         </div>
 
-        <ProductsTable handleDelete={handleDelete} ProductsItems={products}></ProductsTable>
-
-       
-
+        <ProductsTable
+          handleDelete={handleDelete}
+          ProductsItems={products}
+        ></ProductsTable>
       </section>
     </>
   );
