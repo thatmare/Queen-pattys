@@ -33,9 +33,9 @@ function postUser(email: string, password: string, role: string) {
     .then(response =>{
         return response.json()
     })
-    .then(data => {
-        console.log(data, 'AQUI NUEVO USUARIO!!')
-    })
+    // .then(data => {
+    //     console.log(data, 'AQUI NUEVO USUARIO!!')
+    // })
     .catch(error =>{
         console.error('Error sending order:', error);
     });

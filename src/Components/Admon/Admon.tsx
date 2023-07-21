@@ -10,6 +10,9 @@ import {
 } from "../../Services/users.tsx";
 import { useState, useEffect } from "react";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export function Admon() {
   const [users, setUsers] = useState([]);
@@ -20,9 +23,11 @@ export function Admon() {
       navigate("/");
     }
   };
-
+  const [errorAdd, setErrorAdd] = useState('')
   console.log(users, "aqui users admon.tsx");
-  
+  const notify = () => toast("Wow so easy !");
+
+
   function handleUsers() {
     getUsers()
       .then((data) => {
@@ -33,13 +38,16 @@ export function Admon() {
       });
   }
 
-  function handleDelete(userID: number) {
-    deleteUsers(userID)
+  function handleDelete(userID: number): Promise<boolean> {
+    return deleteUsers(userID)
       .then(() => {
         handleUsers();
+        console.log(true)
+        return true;
       })
       .catch((error) => {
         console.error("ERROR DE HANDLEDELETE", error);
+        return false;
       });
   }
 
@@ -59,10 +67,21 @@ export function Admon() {
   }
 
   function handleAddUser(email: string, password: string, role: string) {
+
     postUser(email, password, role)
-      .then(() => {
+    .then((data) => {
+      console.log(data, 'aqui data') // en data está el mensaje de error como string
+      if(data === 'Email and password are required') {
+        setErrorAdd('Correo y contraseña son requeridos.')
+      } else if (data === 'Password is too short') {
+        setErrorAdd('La contraseña es muy corta.')
+      } else if (data === 'Email already exists') {
+        setErrorAdd('El correo ya está en uso.')
+      } else {
+        setErrorAdd('');
         handleUsers();
-      })
+      }
+    })
       .catch((error) => {
         console.error("AQUI ERROR DE HANDLEADD", error);
       });
@@ -84,9 +103,20 @@ export function Admon() {
           handleDelete={handleDelete}
           handleEditUser={handleEdit}
           handleAddUser={handleAddUser}
+          error={errorAdd}
+          notify={notify}
         ></UsersTable>
+        <ToastContainer
+        theme="dark"/>
       </section>
     </>
   );
 }
+
+
+ 
+
+       
+
+      
 
