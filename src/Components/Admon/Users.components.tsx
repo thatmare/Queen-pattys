@@ -18,7 +18,8 @@ function UsersTable({
   handleDelete,
   handleEditUser,
   handleAddUser, 
-  error
+  error,
+  notify,
 }: {
   UsersItems: Users["UsersItems"];
   handleDelete: (id: number) => void;
@@ -33,6 +34,8 @@ function UsersTable({
     password: string,
     role: string
   ) => void;
+  error: string;
+  notify: () => void;
 }) {
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [selectedUserEdit, setSelectedUserEdit] = useState<number | null>(null);
@@ -84,6 +87,7 @@ function UsersTable({
             selectedUser={selectedUser}
             onClose={() => setSelectedUser(null)}
             onCompleted={handleDelete}
+            notify={() => notify()}
           ></ModalUsers>
         )}
         {selectedUserEdit !== null && (
@@ -243,10 +247,12 @@ function ModalUsers({
   selectedUser,
   onClose,
   onCompleted,
+  notify
 }: {
   selectedUser: number;
   onClose: () => void;
   onCompleted: (selectedUser: number) => void;
+  notify: () => void;
 }) {
   const [open, setOpen] = useState(true);
 
@@ -312,7 +318,10 @@ function ModalUsers({
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-greenConfirm px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={() => {
-                      onCompleted(selectedUser);
+                      const success = onCompleted(selectedUser);
+                      if(success) {
+                        notify();
+                      }
                       onClose();
                     }}
                   >

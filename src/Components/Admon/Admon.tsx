@@ -11,6 +11,8 @@ import {
 import { useState, useEffect } from "react";
 import { ProductsTable } from "./Products.components.tsx";
 import { fetchProducts } from "../../Services/getProducts";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Admon() {
   const [users, setUsers] = useState([]);
@@ -23,6 +25,8 @@ export function Admon() {
   };
   const [errorAdd, setErrorAdd] = useState('')
   console.log(users, "aqui users admon.tsx");
+  const notify = () => toast("Wow so easy !");
+
   function handleUsers() {
     getUsers()
       .then((data) => {
@@ -33,13 +37,16 @@ export function Admon() {
       });
   }
 
-  function handleDelete(userID: number) {
-    deleteUsers(userID)
+  function handleDelete(userID: number): Promise<boolean> {
+    return deleteUsers(userID)
       .then(() => {
         handleUsers();
+        console.log(true)
+        return true;
       })
       .catch((error) => {
         console.error("ERROR DE HANDLEDELETE", error);
+        return false;
       });
   }
 
@@ -96,7 +103,10 @@ export function Admon() {
           handleEditUser={handleEdit}
           handleAddUser={handleAddUser}
           error={errorAdd}
+          notify={notify}
         ></UsersTable>
+        <ToastContainer
+        theme="dark"/>
       </section>
     </>
   );
