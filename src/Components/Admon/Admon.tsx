@@ -9,10 +9,10 @@ import {
   patchUsers,
 } from "../../Services/users.tsx";
 import { useState, useEffect } from "react";
-import { ProductsTable } from "./Products.components.tsx";
-import { fetchProducts } from "../../Services/getProducts";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 export function Admon() {
   const [users, setUsers] = useState([]);
@@ -26,6 +26,7 @@ export function Admon() {
   const [errorAdd, setErrorAdd] = useState('')
   console.log(users, "aqui users admon.tsx");
   const notify = () => toast("Wow so easy !");
+
 
   function handleUsers() {
     getUsers()
@@ -112,53 +113,10 @@ export function Admon() {
   );
 }
 
-export function AdmonProducts() {
-  const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    if (localStorage.getItem("token") === null) {
-      navigate("/");
-    }
-  };
 
-  function handleProducts() {
-    fetchProducts()
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.error("ERROR DE HANDLEUSERS", error);
-      });
-  }
+ 
 
-  function handleDelete(userID: number) {
-    deleteUsers(userID)
-      .then(() => {
-        // handleUsers();
-      })
-      .catch((error) => {
-        console.error("ERROR DE HANDLEDELETE", error);
-      });
-  }
+       
 
-  useEffect(() => {
-    handleProducts();
-  }, []);
+      
 
-  return (
-    <>
-      <AdmonNavbar handleLogout={handleLogout} />
-      <section className="flex flex-col bg-gunMetal min-h-screen min-w-fit">
-        <div className="mt-10">
-          <Logo />
-        </div>
-
-        <ProductsTable
-          handleDelete={handleDelete}
-          ProductsItems={products}
-        ></ProductsTable>
-      </section>
-    </>
-  );
-}
