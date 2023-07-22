@@ -1,6 +1,33 @@
-import { Breakfast } from "../Components/Order/Order";
+import { Order } from "../Components/Order/Order";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
+import userEvent from "@testing-library/user-event";
+
+const localStorageMock = (function () {
+  const store: { [key: string]: string } = {};
+
+  return {
+    getItem(key: string) {
+      return store[key];
+    },
+
+    setItem(key: string, value: string) {
+      store[key] = value;
+    },
+
+    removeItem(key: string) {
+      delete store[key];
+    },
+  };
+})();
+
+Object.defineProperty(window, "localStorage", { value: localStorageMock });
+
+const navigateMock = jest.fn();
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useNavigate: () => navigateMock,
+}))
 
 function mockProductsRes(body: object): Response {
   return {
@@ -8,9 +35,9 @@ function mockProductsRes(body: object): Response {
   } as Response;
 }
 
-describe("Breakfast", () => {
-  it("Renderiza el componente breakfast", () => {
-    expect(Breakfast).toBeTruthy();
+describe("Order", () => {
+  it("Renderiza el componente Order", () => {
+    expect(Order).toBeTruthy();
   });
 
   it("Fetches the products from the API.", () => {
@@ -34,7 +61,7 @@ describe("Breakfast", () => {
 
     render(
       <MemoryRouter>
-        <Breakfast></Breakfast>
+        <Order></Order>
       </MemoryRouter>
     );
 
@@ -46,9 +73,24 @@ describe("Breakfast", () => {
   });
 });
 
-// Los productos se insertan correctamente desde la API (menuItem y products, setProducts)
-// la cuenta de los items: setCounter sí cambia counters
-/*Agregar productos al pedido desde la API
-Eliminar productos
-Ver resumen y el total de la compra.
-Enviar pedido a cocina (guardar en alguna base de datos).*/
+describe("handleLogout", () => {
+  it("should remove the token when clicking in the logout button", () => {
+    localStorage.setItem("token", "test-token");
+    const user = userEvent.setup();
+
+    render(
+      <MemoryRouter>
+        <Order />
+      </MemoryRouter>
+    );
+
+    const logoutBtn = screen.getByTestId("logout-btn");
+    user.click(logoutBtn);
+
+    setTimeout(() => {
+      expect(localStorageMock.getItem("token")).toBeNull();
+      expect(navigateMock).toHaveBeenCalledWith('/');
+      expect(navigateMock).toBeCalledTimes(1);
+    }, 1000);
+  });
+});

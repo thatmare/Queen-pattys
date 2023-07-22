@@ -27,6 +27,7 @@ export function Navbar({ handleLogout, handleDelivers } : { handleLogout: () => 
                   className="rounded-full p-1 bg-gunMetal text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 w-8 h-8 mt-2"
                   type="button"
                   onClick={handleLogout}
+                  data-testid="logout-btn"
                 >
                   <span className="sr-only">Log out</span>
                   <img src="src\assets\icon _logout_.png" alt="Log out icon" />
