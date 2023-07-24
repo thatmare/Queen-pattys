@@ -15,6 +15,9 @@ function fetchProducts () {
 }
 
 function postProducts(name: string, price: number, type: string) {
+    if(!name || !price || !type){ 
+        return console.error('Error: missing data');
+    }
     const token = localStorage.getItem('token');
     return fetch('http://localhost:8080/products', {
         method: 'POST',
@@ -58,6 +61,9 @@ function deleteProduct(id: number){
 }
 
 function patchProducts(id: number, name: string, price: number, type: string) {
+    if(!name || !price || !type){ 
+        return console.error('Error: missing data');
+    }
     const token = localStorage.getItem('token');
     return fetch(`http://localhost:8080/products/${id}`, {
         method: 'PATCH',

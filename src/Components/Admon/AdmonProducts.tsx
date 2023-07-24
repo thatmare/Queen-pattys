@@ -10,8 +10,10 @@ import {
   patchProducts,
 } from "../../Services/products.tsx";
 
+
 export function AdmonProducts() {
   const [products, setProducts] = useState([]);
+  
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -19,6 +21,7 @@ export function AdmonProducts() {
       navigate("/");
     }
   };
+  const [errorAdd, setErrorAdd] = useState('') 
 
   function handleProducts() {
     fetchProducts()
@@ -40,7 +43,7 @@ export function AdmonProducts() {
       });
   }
 
-  function handleDelete(id: number) {
+  function handleDelete(id: number | null) {
     deleteProduct(id)
       .then(() => {
         handleProducts();
@@ -53,6 +56,7 @@ export function AdmonProducts() {
   function handleAddProduct(name: string, price: number, type: string) {
     postProducts(name, price, type)
       .then(() => {
+        setErrorAdd('');
         handleProducts();
       })
       .catch((error) => {
@@ -76,6 +80,7 @@ export function AdmonProducts() {
           handleDelete={handleDelete}
           handleEdit={handleEdit}
           ProductsItems={products}
+          error={errorAdd}
         ></ProductsTable>
       </section>
     </>
