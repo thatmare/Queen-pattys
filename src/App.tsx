@@ -4,7 +4,8 @@ import { Order } from "./Components/Order/Order.tsx";
 import { Kitchen } from "./Components/Kitchen/Kitchen.tsx";
 import { PrivateRoute } from "./Services/protectedRoutes.tsx";
 import { Delivers } from "./Components/Delivers/Delivers.tsx";
-import { Admon, AdmonProducts } from "./Components/Admon/Admon.tsx";
+import { Admon} from "./Components/Admon/Admon.tsx";
+import { AdmonProducts } from "./Components/Admon/AdmonProducts.tsx";
 
 
 export function App() {
