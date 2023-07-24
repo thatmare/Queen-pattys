@@ -74,42 +74,19 @@ describe("Order", () => {
     // TypeError: items.map is not a function y no se encuentra el texto en el DOM: ¿se está tardando en renderizar?
   });
 
-  it("posts the order in an object with keys of client, id, status, dataEntry and products, which is an array of objects of the products.", () => {
-    const user = userEvent.setup();
-    const jsonBody = {
-      userId: 15254,
-      client: "Carol Shaw",
-      products: [
-        {
-          qty: 5,
-          product: {
-            id: 1214,
-            name: "Sandwich de jamón y queso",
-            price: 1000,
-            type: "Desayuno",
-            dateEntry: "2022-03-05 15:14:10",
-          },
-        },
-      ],
-      status: "pending",
-      dateEntry: "2022-03-05 15:14:10",
-    };
-
-    global.fetch = jest.fn().mockImplementation(() => Promise.resolve());
-    jest
-      .spyOn(global, "fetch")
-      .mockImplementation(() => Promise.resolve(mockProductsRes(jsonBody)));
-
+  it('must post the order in the API when clicking the button Enviar a cocina', () => {
+    const postOrdersSpy = jest.spyOn(orderService, "postOrders")
+  
     render(
       <MemoryRouter>
         <Order/>
       </MemoryRouter>
     )
+    const postOrderBtn = screen.getByTestId('post-order-btn');
+    fireEvent.click(postOrderBtn);
 
-    const postBtn = screen.getByTestId('post-order-btn');
-    user.click(postBtn);
-
-  });
+    expect(postOrdersSpy).toHaveBeenCalled();
+  })
 });
 
 describe("handleLogout", () => {
@@ -132,34 +109,4 @@ describe("handleLogout", () => {
       expect(navigateMock).toBeCalledTimes(1);
     }, 1000);
   });
-
-  it('must post the order in the API when clicking the button Enviar a cocina', () => {
-    // jest.mock('../Services/orders', () => ({
-    //   postOrders: jest.fn(() => Promise.resolve({ data: {}}))
-    // }))
-
-    const postOrdersSpy = jest.spyOn(orderService, "postOrders")
-  
-    render(
-      <MemoryRouter>
-        <Order/>
-      </MemoryRouter>
-    )
-    const postOrderBtn = screen.getByTestId('post-order-btn');
-    fireEvent.click(postOrderBtn);
-
-    // const mockOrder = {
-    //   client: 'selectedClient',
-    //   id: 1,
-    //   products: [
-    //     { qty: 2, product: { id: 1, name: 'Item 1', price: 10, type: 'type1', dataEntry: expect.any(String) } },
-    //     { qty: 1, product: { id: 2, name: 'Item 2', price: 20, type: 'type2', dataEntry: expect.any(String) } },
-    //   ],
-    //   status: 'pending',
-    //   dataEntry: expect.any(String),
-    // }
-    
-
-    expect(postOrdersSpy).toHaveBeenCalled();
-  })
 });
