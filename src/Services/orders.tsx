@@ -1,4 +1,4 @@
-export function getOrders() {
+function getOrders() {
     const token = localStorage.getItem('token');
     return fetch('http://localhost:8080/orders', {
         headers: {
@@ -13,7 +13,7 @@ export function getOrders() {
     })
 }
 
-export function postOrders(order: object) {
+ function postOrders(order: object) {
     const token = localStorage.getItem('token');
     return fetch('http://localhost:8080/orders', {
         method: 'POST',
@@ -31,7 +31,7 @@ export function postOrders(order: object) {
     });
 }
 
-export function patchOrders(id: number) {
+ function patchOrders(id: number) {
     const token = localStorage.getItem('token');
     return fetch(`http://localhost:8080/orders/${id}`, {
         method: 'PATCH',
@@ -54,7 +54,7 @@ export function patchOrders(id: number) {
     });
 }
 
-export function patchDelivers(id: number) {
+ function patchDelivers(id: number) {
     const token = localStorage.getItem('token');
     return fetch(`http://localhost:8080/orders/${id}`, {
         method: 'PATCH',
@@ -76,3 +76,5 @@ export function patchDelivers(id: number) {
         console.error('Error sending order:', error);
     });
 }
+
+export { getOrders, postOrders, patchOrders, patchDelivers}

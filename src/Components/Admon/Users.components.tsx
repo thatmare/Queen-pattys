@@ -217,14 +217,59 @@ function AddUserModal({
                             className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 mb-5 text-sm text-black"
                             required
                           />
-                          <label className="text-sm text-white">Rol</label>
-                          <input
-                            type="text"
-                            placeholder="Rol"
-                            onChange={(e) => setRole(e.target.value)}
-                            className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 mb-5 text-sm text-black"
-                            required
-                          />
+                        <label className="text-sm text-white ">Rol</label>
+                          <br />
+                          <div className="flex flex-row justify-evenly mt-4">
+                            <div>
+                              <label
+                                className="text-sm text-white inline-flex "
+                                htmlFor="admin"
+                              >
+                                Admin
+                              </label>
+                              <input
+                                type="radio"
+                                id="admin"
+                                name="role"
+                                value="admin"
+                                onChange={(e) => setRole(e.target.value)}
+                                className="text-sm text-white ml-2"
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label
+                                className="text-sm text-white inline-flex"
+                                htmlFor="waiter"
+                              >
+                                Waiter
+                              </label>
+                              <input
+                                type="radio"
+                                id="waiter"
+                                name="role"
+                                value="waiter"
+                                onChange={(e) => setRole(e.target.value)}
+                                className="text-sm text-white ml-2"
+                              />
+                            </div>
+                            <div>
+                              <label
+                                className="text-sm text-white inline-flex"
+                                htmlFor="chef"
+                              >
+                                Chef
+                              </label>
+                              <input
+                                type="radio"
+                                id="chef"
+                                name="role"
+                                value="chef"
+                                onChange={(e) => setRole(e.target.value)}
+                                className="text-sm text-white ml-2"
+                              />
+                            </div>
+                          </div>
                           {error && (
                             <p className="text-red-400 font-medium">{error}</p>
                           )}
@@ -461,48 +506,99 @@ function EditUserModal({
                             className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 mb-5 text-sm text-black"
                             required
                           />
-                          <label className="text-sm text-white">Rol</label>
-                          <input
-                            type="text"
-                            placeholder={selectedUser.role}
-                            onChange={(e) => setRole(e.target.value)}
-                            className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 mb-5 text-sm text-black"
-                            required
-                          />
-                           {error && (
-                          <p className="text-red-400 font-medium">{error}</p>
-                        )}
-                        <div className="bg-gunMetal px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 mb-4 mr-6">
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-greenConfirm px-6 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => {
-                      if (!email || !password || !role) {
-                        setError("Por favor, completa todos los campos.");
-                      } else {
-                        onSubmit(selectedUserEdit, email, password, role);
-                        onClose();
-                      }
-                    }}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto mr-6 "
-                    onClick={() => onClose()}
-                    ref={cancelButtonRef}
-                  >
-                    Cancelar
-                  </button>
-                </div>
+                          <label className="text-sm text-white ">Rol</label>
+                          <br />
+                          <div className="flex flex-row justify-evenly mt-4">
+                            <div>
+                              <label
+                                className="text-sm text-white inline-flex "
+                                htmlFor="admin"
+                              >
+                                Admin
+                              </label>
+                              <input
+                                type="radio"
+                                id="admin"
+                                name="role"
+                                value="admin"
+                                onChange={(e) => setRole(e.target.value)}
+                                className="text-sm text-white ml-2"
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label
+                                className="text-sm text-white inline-flex"
+                                htmlFor="waiter"
+                              >
+                                Waiter
+                              </label>
+                              <input
+                                type="radio"
+                                id="waiter"
+                                name="role"
+                                value="waiter"
+                                onChange={(e) => setRole(e.target.value)}
+                                className="text-sm text-white ml-2"
+                              />
+                            </div>
+                            <div>
+                              <label
+                                className="text-sm text-white inline-flex"
+                                htmlFor="chef"
+                              >
+                                Chef
+                              </label>
+                              <input
+                                type="radio"
+                                id="chef"
+                                name="role"
+                                value="chef"
+                                onChange={(e) => setRole(e.target.value)}
+                                className="text-sm text-white ml-2"
+                              />
+                            </div>
+                          </div>
+
+                          {error && (
+                            <p className="text-red-400 font-medium">{error}</p>
+                          )}
+                          <div className="bg-gunMetal px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 mb-4 mr-6  mt-6">
+                            <button
+                              type="button"
+                              className="mt-3 inline-flex w-full justify-center rounded-md bg-greenConfirm px-6 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                              onClick={() => {
+                                if (!email || !password || !role) {
+                                  setError(
+                                    "Por favor, completa todos los campos."
+                                  );
+                                } else {
+                                  onSubmit(
+                                    selectedUserEdit,
+                                    email,
+                                    password,
+                                    role
+                                  );
+                                  onClose();
+                                }
+                              }}
+                            >
+                              Editar
+                            </button>
+                            <button
+                              type="button"
+                              className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto mr-6 "
+                              onClick={() => onClose()}
+                              ref={cancelButtonRef}
+                            >
+                              Cancelar
+                            </button>
+                          </div>
                         </form>
-                       
                       </div>
                     </div>
                   </div>
                 </div>
-                
               </Dialog.Panel>
             </Transition.Child>
           </div>

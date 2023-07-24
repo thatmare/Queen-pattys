@@ -8,7 +8,7 @@ import {
   deleteProduct,
   fetchProducts,
   patchProducts,
-} from "../../Services/getProducts.tsx";
+} from "../../Services/products.tsx";
 
 export function AdmonProducts() {
   const [products, setProducts] = useState([]);

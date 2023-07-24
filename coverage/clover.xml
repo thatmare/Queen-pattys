@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1690222144372" clover="3.2.0">
-  <project timestamp="1690222144372" name="All files">
-    <metrics statements="140" coveredstatements="85" conditionals="16" coveredconditionals="6" methods="70" coveredmethods="29" elements="226" coveredelements="120" complexity="0" loc="140" ncloc="140" packages="4" files="8" classes="8"/>
+<coverage generated="1690222481638" clover="3.2.0">
+  <project timestamp="1690222481639" name="All files">
+    <metrics statements="143" coveredstatements="88" conditionals="22" coveredconditionals="6" methods="85" coveredmethods="29" elements="250" coveredelements="123" complexity="0" loc="143" ncloc="143" packages="4" files="8" classes="8"/>
     <package name="Components.Login">
       <metrics statements="25" coveredstatements="24" conditionals="3" coveredconditionals="2" methods="9" coveredmethods="9"/>
-      <file name="Login.components.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Components\Login\Login.components.tsx">
+      <file name="Login.components.tsx" path="E:\Git\Queen-pattys\src\Components\Login\Login.components.tsx">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
-        <line num="4" count="12" type="stmt"/>
+        <line num="4" count="11" type="stmt"/>
         <line num="18" count="8" type="stmt"/>
         <line num="49" count="8" type="stmt"/>
         <line num="76" count="8" type="stmt"/>
         <line num="89" count="8" type="stmt"/>
         <line num="98" count="2" type="stmt"/>
       </file>
-      <file name="Login.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Components\Login\Login.tsx">
+      <file name="Login.tsx" path="E:\Git\Queen-pattys\src\Components\Login\Login.tsx">
         <metrics statements="19" coveredstatements="18" conditionals="3" coveredconditionals="2" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -38,37 +38,37 @@
     </package>
     <package name="Components.Navbar">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="Navbar.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Components\Navbar\Navbar.tsx">
+      <file name="Navbar.tsx" path="E:\Git\Queen-pattys\src\Components\Navbar\Navbar.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
       </file>
     </package>
     <package name="Components.Order">
       <metrics statements="59" coveredstatements="39" conditionals="12" coveredconditionals="4" methods="28" coveredmethods="11"/>
-      <file name="Order.components.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Components\Order\Order.components.tsx">
+      <file name="Order.components.tsx" path="E:\Git\Queen-pattys\src\Components\Order\Order.components.tsx">
         <metrics statements="32" coveredstatements="17" conditionals="11" coveredconditionals="4" methods="21" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="8" count="8" type="stmt"/>
-        <line num="14" count="8" type="stmt"/>
-        <line num="52" count="4" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
         <line num="53" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="54" count="0" type="stmt"/>
-        <line num="61" count="4" type="stmt"/>
+        <line num="61" count="3" type="stmt"/>
         <line num="62" count="0" type="stmt"/>
-        <line num="68" count="4" type="stmt"/>
+        <line num="68" count="3" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
         <line num="84" count="0" type="stmt"/>
         <line num="88" count="0" type="stmt"/>
-        <line num="98" count="4" type="stmt"/>
+        <line num="98" count="3" type="stmt"/>
         <line num="99" count="0" type="stmt"/>
-        <line num="102" count="4" type="stmt"/>
-        <line num="127" count="4" type="stmt"/>
-        <line num="128" count="4" type="stmt"/>
+        <line num="102" count="3" type="stmt"/>
+        <line num="127" count="3" type="stmt"/>
+        <line num="128" count="3" type="stmt"/>
         <line num="130" count="0" type="stmt"/>
-        <line num="132" count="4" type="stmt"/>
+        <line num="132" count="3" type="stmt"/>
         <line num="133" count="1" type="stmt"/>
         <line num="137" count="0" type="stmt"/>
         <line num="138" count="0" type="stmt"/>
@@ -76,14 +76,14 @@
         <line num="155" count="1" type="stmt"/>
         <line num="156" count="1" type="stmt"/>
         <line num="159" count="0" type="stmt"/>
-        <line num="163" count="4" type="stmt"/>
+        <line num="163" count="3" type="stmt"/>
         <line num="168" count="0" type="stmt"/>
         <line num="169" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="170" count="0" type="stmt"/>
         <line num="172" count="0" type="stmt"/>
         <line num="201" count="1" type="stmt"/>
       </file>
-      <file name="Order.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Components\Order\Order.tsx">
+      <file name="Order.tsx" path="E:\Git\Queen-pattys\src\Components\Order\Order.tsx">
         <metrics statements="27" coveredstatements="22" conditionals="1" coveredconditionals="0" methods="7" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -91,33 +91,33 @@
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="20" count="4" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="23" count="0" type="stmt"/>
-        <line num="27" count="4" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
-        <line num="32" count="4" type="stmt"/>
-        <line num="33" count="4" type="stmt"/>
-        <line num="35" count="4" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
-        <line num="42" count="4" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
       </file>
     </package>
     <package name="Services">
-      <metrics statements="52" coveredstatements="18" conditionals="1" coveredconditionals="0" methods="31" coveredmethods="7"/>
-      <file name="auth.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Services\auth.tsx">
-        <metrics statements="12" coveredstatements="7" conditionals="1" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <metrics statements="55" coveredstatements="21" conditionals="7" coveredconditionals="0" methods="46" coveredmethods="7"/>
+      <file name="auth.tsx" path="E:\Git\Queen-pattys\src\Services\auth.tsx">
+        <metrics statements="13" coveredstatements="8" conditionals="3" coveredconditionals="0" methods="9" coveredmethods="3"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
@@ -130,12 +130,13 @@
         <line num="19" count="0" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
+        <line num="35" count="1" type="cond" truecount="0" falsecount="2"/>
       </file>
-      <file name="getProducts.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Services\getProducts.tsx">
-        <metrics statements="18" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="13" coveredmethods="2"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
+      <file name="getProducts.tsx" path="E:\Git\Queen-pattys\src\Services\getProducts.tsx">
+        <metrics statements="19" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="18" coveredmethods="2"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
@@ -151,9 +152,10 @@
         <line num="75" count="0" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
+        <line num="89" count="1" type="cond" truecount="0" falsecount="2"/>
       </file>
-      <file name="orders.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Services\orders.tsx">
-        <metrics statements="22" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="14" coveredmethods="2"/>
+      <file name="orders.tsx" path="E:\Git\Queen-pattys\src\Services\orders.tsx">
+        <metrics statements="23" coveredstatements="8" conditionals="2" coveredconditionals="0" methods="19" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
@@ -176,6 +178,7 @@
         <line num="71" count="0" type="stmt"/>
         <line num="74" count="0" type="stmt"/>
         <line num="76" count="0" type="stmt"/>
+        <line num="85" count="1" type="cond" truecount="0" falsecount="2"/>
       </file>
     </package>
   </project>
