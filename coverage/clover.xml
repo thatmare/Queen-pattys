@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1690209551034" clover="3.2.0">
-  <project timestamp="1690209551034" name="All files">
-    <metrics statements="127" coveredstatements="85" conditionals="16" coveredconditionals="6" methods="60" coveredmethods="29" elements="203" coveredelements="120" complexity="0" loc="127" ncloc="127" packages="4" files="8" classes="8"/>
+<coverage generated="1690222144372" clover="3.2.0">
+  <project timestamp="1690222144372" name="All files">
+    <metrics statements="140" coveredstatements="85" conditionals="16" coveredconditionals="6" methods="70" coveredmethods="29" elements="226" coveredelements="120" complexity="0" loc="140" ncloc="140" packages="4" files="8" classes="8"/>
     <package name="Components.Login">
       <metrics statements="25" coveredstatements="24" conditionals="3" coveredconditionals="2" methods="9" coveredmethods="9"/>
       <file name="Login.components.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Components\Login\Login.components.tsx">
@@ -115,7 +115,7 @@
       </file>
     </package>
     <package name="Services">
-      <metrics statements="39" coveredstatements="18" conditionals="1" coveredconditionals="0" methods="21" coveredmethods="7"/>
+      <metrics statements="52" coveredstatements="18" conditionals="1" coveredconditionals="0" methods="31" coveredmethods="7"/>
       <file name="auth.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Services\auth.tsx">
         <metrics statements="12" coveredstatements="7" conditionals="1" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="5" count="1" type="stmt"/>
@@ -132,12 +132,25 @@
         <line num="24" count="2" type="stmt"/>
       </file>
       <file name="getProducts.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Services\getProducts.tsx">
-        <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
-        <line num="2" count="1" type="stmt"/>
+        <metrics statements="18" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="13" coveredmethods="2"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
       </file>
       <file name="orders.tsx" path="C:\Users\maris\Desktop\coding\queen-pattys\queen-pattys\src\Services\orders.tsx">
         <metrics statements="22" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="14" coveredmethods="2"/>

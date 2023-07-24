@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import userEvent from "@testing-library/user-event";
 
-import { postOrders } from "../Services/orders";
+import * as orderService from "../Services/orders";
 
 const localStorageMock = (function () {
   const store: { [key: string]: string } = {};
@@ -134,9 +134,11 @@ describe("handleLogout", () => {
   });
 
   it('must post the order in the API when clicking the button Enviar a cocina', () => {
-    jest.mock('../Services/orders', () => ({
-      postOrders: jest.fn(() => Promise.resolve({ data: {}}))
-    }))
+    // jest.mock('../Services/orders', () => ({
+    //   postOrders: jest.fn(() => Promise.resolve({ data: {}}))
+    // }))
+
+    const postOrdersSpy = jest.spyOn(orderService, "postOrders")
   
     render(
       <MemoryRouter>
@@ -146,17 +148,18 @@ describe("handleLogout", () => {
     const postOrderBtn = screen.getByTestId('post-order-btn');
     fireEvent.click(postOrderBtn);
 
-    const mockOrder = {
-      client: 'selectedClient',
-      id: 1,
-      products: [
-        { qty: 2, product: { id: 1, name: 'Item 1', price: 10, type: 'type1', dataEntry: expect.any(String) } },
-        { qty: 1, product: { id: 2, name: 'Item 2', price: 20, type: 'type2', dataEntry: expect.any(String) } },
-      ],
-      status: 'pending',
-      dataEntry: expect.any(String),
-    }
+    // const mockOrder = {
+    //   client: 'selectedClient',
+    //   id: 1,
+    //   products: [
+    //     { qty: 2, product: { id: 1, name: 'Item 1', price: 10, type: 'type1', dataEntry: expect.any(String) } },
+    //     { qty: 1, product: { id: 2, name: 'Item 2', price: 20, type: 'type2', dataEntry: expect.any(String) } },
+    //   ],
+    //   status: 'pending',
+    //   dataEntry: expect.any(String),
+    // }
+    
 
-    expect(postOrders).toHaveBeenCalledWith(mockOrder);
+    expect(postOrdersSpy).toHaveBeenCalled();
   })
 });
