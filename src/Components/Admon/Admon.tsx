@@ -77,11 +77,13 @@ export function Admon() {
         setErrorAdd('La contraseña es muy corta.')
       } else if (data === 'Email already exists') {
         setErrorAdd('El correo ya está en uso.')
-      } else {
+      }
+        else {
+        console.log('aqui data', data)
         setErrorAdd('');
         handleUsers();
-      }
-    })
+     }
+    }) 
       .catch((error) => {
         console.error("AQUI ERROR DE HANDLEADD", error);
       });
