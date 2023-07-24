@@ -1,7 +1,7 @@
 import { MenuBtn, FoodItems, Client, OrderSum } from "./Order.components.tsx";
 import { useEffect, useState } from "react";
 import { Logo } from "../Login/Login.components.tsx";
-import { fetchProducts } from "../../Services/getProducts.tsx";
+import { fetchProducts } from "../../Services/products.tsx";
 import { Navbar } from "../Navbar/Navbar.tsx";
 import { useNavigate } from "react-router";
 
