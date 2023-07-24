@@ -1,4 +1,4 @@
-import { postOrders } from "../../Services/postOrders.tsx";
+import { postOrders } from "../../Services/orders.tsx";
 
 interface MenuBtnProps {
   meals: string[];
@@ -190,6 +190,7 @@ function OrderSum({
         className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 my-6"
         type="button"
         onClick={handleOrder}
+        data-testid="post-order-btn"
       >
         Enviar a cocina
       </button>

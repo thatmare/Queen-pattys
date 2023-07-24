@@ -1,6 +1,5 @@
 import { Logo } from "../Login/Login.components.tsx";
-import { getOrders } from "../../Services/getOrders.tsx";
-import { patchDelivers } from "../../Services/patchDelivers.tsx";
+import { getOrders, patchDelivers } from "../../Services/orders.tsx";
 import { useState, useEffect, Fragment, useRef } from "react";
 import { Dialog, Transition} from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
