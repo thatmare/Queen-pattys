@@ -14,9 +14,9 @@ function fetchProducts () {
     })
 }
 
-function postProducts(name: string, price: number, type: string) {
+function postProducts(name: string, price: number, type: string) : Promise<object> | Promise <void>{
     if(!name || !price || !type){ 
-        return console.error('Error: missing data');
+        console.error('Error: missing data');
     }
     const token = localStorage.getItem('token');
     return fetch('http://localhost:8080/products', {
@@ -43,7 +43,7 @@ function postProducts(name: string, price: number, type: string) {
 }
 
 
-function deleteProduct(id: number){
+function deleteProduct(id: number | null){
     const token = localStorage.getItem('token');
     return fetch(`http://localhost:8080/products/${id}`, {
         method: 'DELETE',
@@ -60,9 +60,9 @@ function deleteProduct(id: number){
 });
 }
 
-function patchProducts(id: number, name: string, price: number, type: string) {
+function patchProducts(id: number, name: string, price: number, type: string): Promise<object> {
     if(!name || !price || !type){ 
-        return console.error('Error: missing data');
+        console.error('Error: missing data');
     }
     const token = localStorage.getItem('token');
     return fetch(`http://localhost:8080/products/${id}`, {

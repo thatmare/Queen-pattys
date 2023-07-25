@@ -23,7 +23,7 @@ function ProductsTable({
   ProductsItems: Products["ProductsItems"];
   handleDelete: (id: number | null) => void;
   handleEdit: (id: number, name: string, price: number, type: string) => void;
-  handleAddProduct: (name: string, price: number, type: string) => void;
+  handleAddProduct: (name: string, price: number, type: string) => Promise<object> | Promise<void>;
   error: string;
 }) {
   const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
@@ -359,7 +359,7 @@ function AddProduct({
   handleAddProduct,
   error,
 }: {
-  handleAddProduct: (name: string, price: number, type: string) => void;
+  handleAddProduct: (name: string, price: number, type: string) => Promise<object> | Promise<void>;
   error: string;
 }) {
   const [openAdd, setOpenAdd] = useState(false);
@@ -391,7 +391,7 @@ function AddProductModal({
   error,
 }: {
   onClose: () => void;
-  onSubmit: (name: string, price: number, type: string) => void;
+  onSubmit: (name: string, price: number, type: string) => Promise<object> | Promise<void>;
   error: string;
 }) {
   const [open, setOpen] = useState(true);

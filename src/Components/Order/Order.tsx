@@ -4,13 +4,17 @@ import { Logo } from "../Login/Login.components.tsx";
 import { fetchProducts } from "../../Services/products.tsx";
 import { Navbar } from "../Navbar/Navbar.tsx";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Order() {
   const [products, setProducts] = useState([]);
   const [counters, setCounters] = useState<{ [key: string]: number }>({});
   const [selectedClient, setSelectedClient] = useState("");
+  const notifyToDeliver = () => toast.success('Pedido enviado a cocina');
   const handleOrderSubmit = () => {
     setCounters({});
+    notifyToDeliver();
   };
   const desayunoItems = ["Desayuno"];
   const almuerzoCenaItems = ["Almuerzo y cena"];
@@ -44,6 +48,12 @@ function Order() {
     <Navbar handleLogout={handleLogout} handleDelivers={handleDelivers}></Navbar>
     <section className=" bg-gunMetal min-h-screen min-w-fit flex flex-col items-center pt-10 ">
       <Logo></Logo>
+      <ToastContainer
+          theme="dark"
+          toastClassName={() => "flex bg-blackInput p-4 rounded justify-between border-2 border-kitchenText"}
+          bodyClassName={() => "flex flex-row text-kitchenText items-center"}
+          hideProgressBar
+        />
       <div className="flex justify-center items-center w-4/6 md:w-4/5 lg:w-3/5 mt-10">
         <MenuBtn meals={desayunoItems}></MenuBtn>
         <MenuBtn meals={almuerzoCenaItems}></MenuBtn>
