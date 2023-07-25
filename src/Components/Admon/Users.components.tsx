@@ -19,7 +19,9 @@ function UsersTable({
   handleEditUser,
   handleAddUser,
   error,
-  notify,
+  notifyDelete,
+  notifyAdd,
+  notifyEdit
 }: {
   UsersItems: Users["UsersItems"];
   handleDelete: (id: number) => void;
@@ -31,14 +33,16 @@ function UsersTable({
   ) => void;
   handleAddUser: (email: string, password: string, role: string) => void;
   error: string;
-  notify: () => void;
+  notifyDelete: () => void;
+  notifyAdd: () => void;
+  notifyEdit: () => void;
 }) {
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [selectedUserEdit, setSelectedUserEdit] = useState<number | null>(null);
 
   return (
     <div className="mx-auto pt-12 ">
-      <AddUser handleAddUser={handleAddUser} error={error} />
+      <AddUser handleAddUser={handleAddUser} error={error} notifyAdd={notifyAdd}/>
       <div className="rounded-xl overflow-hidden outline-4 outline outline-kitchenText ">
         <table className=" bg-blackInput   table-fixed">
           <thead>
@@ -82,7 +86,7 @@ function UsersTable({
             selectedUser={selectedUser}
             onClose={() => setSelectedUser(null)}
             onCompleted={handleDelete}
-            notify={() => notify()}
+            notifyDelete={() => notifyDelete()}
           ></ModalUsers>
         )}
         {selectedUserEdit !== null && (
@@ -91,6 +95,7 @@ function UsersTable({
             onClose={() => setSelectedUserEdit(null)}
             onSubmit={handleEditUser}
             UsersItems={UsersItems}
+            notifyEdit={notifyEdit}
           />
         )}
       </>
@@ -101,9 +106,11 @@ function UsersTable({
 function AddUser({
   handleAddUser,
   error,
+  notifyAdd
 }: {
   handleAddUser: (email: string, password: string, role: string) => void;
   error: string;
+  notifyAdd: () => void;
 }) {
   // const [openAdd, setOpenAdd] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -125,6 +132,7 @@ function AddUser({
             onClose={handleModalClose}
             onSubmit={handleAddUser}
             error={error}
+            notifyAdd={notifyAdd}
           />
         )}
       </>
@@ -136,10 +144,12 @@ function AddUserModal({
   onClose,
   onSubmit,
   error,
+  notifyAdd
 }: {
   onClose: () => void;
   onSubmit: (email: string, password: string, role: string) => void;
   error: string;
+  notifyAdd: () => void
 }) {
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
@@ -280,11 +290,20 @@ function AddUserModal({
                             onClick={() => {
                               onSubmit(email, password, role);
                               if (!error) {
-                                onClose();
+                                onClose()
+                                notifyAdd();
                               }
                             }}
                           >
                             Crear
+{/* 
+                            onClick={() => {
+                      const success = onCompleted(selectedUser);
+                      if (success) {
+                        notifyDelete();
+                      }
+                      onClose();
+                    }} */}
                           </button>
                           <button
                             type="button"
@@ -313,12 +332,12 @@ function ModalUsers({
   selectedUser,
   onClose,
   onCompleted,
-  notify,
+  notifyDelete,
 }: {
   selectedUser: number;
   onClose: () => void;
   onCompleted: (selectedUser: number) => void;
-  notify: () => void;
+  notifyDelete: () => void;
 }) {
   const [open, setOpen] = useState(true);
 
@@ -386,7 +405,7 @@ function ModalUsers({
                     onClick={() => {
                       const success = onCompleted(selectedUser);
                       if (success) {
-                        notify();
+                        notifyDelete();
                       }
                       onClose();
                     }}
@@ -416,6 +435,7 @@ function EditUserModal({
   onClose,
   onSubmit,
   UsersItems,
+  notifyEdit
 }: {
   selectedUserEdit: number;
   onClose: () => void;
@@ -426,6 +446,7 @@ function EditUserModal({
     role: string
   ) => void;
   UsersItems: Users["UsersItems"];
+  notifyEdit: () => void;
 }) {
   const selectedUser = UsersItems.find((u) => u.id === selectedUserEdit);
   const [open, setOpen] = useState(true);
@@ -581,6 +602,7 @@ function EditUserModal({
                                     role
                                   );
                                   onClose();
+                                  notifyEdit()
                                 }
                               }}
                             >
