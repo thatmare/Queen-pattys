@@ -18,10 +18,6 @@ function UsersTable({
   handleDelete,
   handleEditUser,
   handleAddUser,
-  error,
-  notifyDelete,
-  notifyAdd,
-  notifyEdit
 }: {
   UsersItems: Users["UsersItems"];
   handleDelete: (id: number) => void;
@@ -32,17 +28,13 @@ function UsersTable({
     role: string
   ) => void;
   handleAddUser: (email: string, password: string, role: string) => void;
-  error: string;
-  notifyDelete: () => void;
-  notifyAdd: () => void;
-  notifyEdit: () => void;
 }) {
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [selectedUserEdit, setSelectedUserEdit] = useState<number | null>(null);
 
   return (
     <div className="mx-auto pt-12 ">
-      <AddUser handleAddUser={handleAddUser} error={error} notifyAdd={notifyAdd}/>
+      <AddUser handleAddUser={handleAddUser}/>
       <div className="rounded-xl overflow-hidden outline-4 outline outline-kitchenText ">
         <table className=" bg-blackInput   table-fixed">
           <thead>
@@ -86,7 +78,7 @@ function UsersTable({
             selectedUser={selectedUser}
             onClose={() => setSelectedUser(null)}
             onCompleted={handleDelete}
-            notifyDelete={() => notifyDelete()}
+          
           ></ModalUsers>
         )}
         {selectedUserEdit !== null && (
@@ -95,7 +87,6 @@ function UsersTable({
             onClose={() => setSelectedUserEdit(null)}
             onSubmit={handleEditUser}
             UsersItems={UsersItems}
-            notifyEdit={notifyEdit}
           />
         )}
       </>
@@ -105,12 +96,8 @@ function UsersTable({
 
 function AddUser({
   handleAddUser,
-  error,
-  notifyAdd
 }: {
   handleAddUser: (email: string, password: string, role: string) => void;
-  error: string;
-  notifyAdd: () => void;
 }) {
   // const [openAdd, setOpenAdd] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -131,8 +118,6 @@ function AddUser({
           <AddUserModal
             onClose={handleModalClose}
             onSubmit={handleAddUser}
-            error={error}
-            notifyAdd={notifyAdd}
           />
         )}
       </>
@@ -143,13 +128,9 @@ function AddUser({
 function AddUserModal({
   onClose,
   onSubmit,
-  error,
-  notifyAdd
 }: {
   onClose: () => void;
   onSubmit: (email: string, password: string, role: string) => void;
-  error: string;
-  notifyAdd: () => void
 }) {
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
@@ -157,12 +138,10 @@ function AddUserModal({
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     onSubmit(email, password, role);
-    if (!error) {
-      onClose();
-    }
+    onClose();
   };
 
   return (
@@ -208,7 +187,7 @@ function AddUserModal({
                       </Dialog.Title>
 
                       <div className="mt-2">
-                        <form className="p-6 pt-6">
+                        <form className="p-6 pt-6" onSubmit={handleSubmit}>
                           <label className="text-sm text-white">Correo</label>
                           <input
                             type="email"
@@ -280,39 +259,18 @@ function AddUserModal({
                               />
                             </div>
                           </div>
-                          {error && (
-                            <p className="text-red-400 font-medium">{error}</p>
-                          )}
                           <div className="bg-gunMetal px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 mb-4 mr-6">
                           <button
                             type="submit"
                             className="mt-3 inline-flex w-full justify-center rounded-md bg-greenConfirm px-6 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                            onClick={() => {
-                              onSubmit(email, password, role);
-                              if (!error) {
-                                onClose()
-                                notifyAdd();
-                              }
-                            }}
-                          >
-                            Crear
-{/* 
-                            onClick={() => {
-                      const success = onCompleted(selectedUser);
-                      if (success) {
-                        notifyDelete();
-                      }
-                      onClose();
-                    }} */}
-                          </button>
+        
+                          >Crear</button>
                           <button
                             type="button"
                             className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto mr-6 "
                             onClick={() => onClose()}
                             ref={cancelButtonRef}
-                          >
-                            Cancelar
-                          </button>
+                          >Cancelar</button>
                           </div>
                         </form>
                       </div>
@@ -332,12 +290,12 @@ function ModalUsers({
   selectedUser,
   onClose,
   onCompleted,
-  notifyDelete,
+  
 }: {
   selectedUser: number;
   onClose: () => void;
   onCompleted: (selectedUser: number) => void;
-  notifyDelete: () => void;
+
 }) {
   const [open, setOpen] = useState(true);
 
@@ -403,11 +361,14 @@ function ModalUsers({
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-greenConfirm px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={() => {
-                      const success = onCompleted(selectedUser);
-                      if (success) {
-                        notifyDelete();
-                      }
+                      onCompleted(selectedUser) 
+                    
                       onClose();
+                      // const success = onCompleted(selectedUser);
+                      // if (success) {
+                      //   notifyDelete();
+                      // }
+                      // onClose();
                     }}
                   >
                     Eliminar
@@ -435,7 +396,7 @@ function EditUserModal({
   onClose,
   onSubmit,
   UsersItems,
-  notifyEdit
+  
 }: {
   selectedUserEdit: number;
   onClose: () => void;
@@ -446,7 +407,7 @@ function EditUserModal({
     role: string
   ) => void;
   UsersItems: Users["UsersItems"];
-  notifyEdit: () => void;
+ 
 }) {
   const selectedUser = UsersItems.find((u) => u.id === selectedUserEdit);
   const [open, setOpen] = useState(true);
@@ -602,7 +563,7 @@ function EditUserModal({
                                     role
                                   );
                                   onClose();
-                                  notifyEdit()
+                                 
                                 }
                               }}
                             >

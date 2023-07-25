@@ -16,9 +16,9 @@ function getUsers () {
     })
 }
 
-function postUser(email: string, password: string, role: string) {
+function postUser(email: string, password: string, role: string): Promise<object> {
     if(!email|| !password || !role) {
-        return console.error('Error: email, password and role are required')
+        console.error('Error: email, password and role are required')
     }
     const token = localStorage.getItem('token');
     return fetch('http://localhost:8080/users', {
@@ -36,17 +36,22 @@ function postUser(email: string, password: string, role: string) {
     .then(response =>{
         return response.json()
     })
-    // .then(data => {
-    //     console.log(data, 'AQUI NUEVO USUARIO!!')
-    // })
+    .then(data => {
+        if(typeof data === "string") {
+            console.error(data)
+            throw new Error(data);
+        } else {
+            return data
+        }}
+    )
     .catch(error =>{
         console.error('Error sending order:', error);
     });
 }
 
-function patchUsers(id: number, email: string, password: string, role: string) {
+function patchUsers(id: number, email: string, password: string, role: string): Promise<object>  {
     if(!email|| !password || !role) {
-        return console.error('Error: email, password and role are required')
+        console.error('Error: email, password and role are required')
     }
     const token = localStorage.getItem('token');
     return fetch(`http://localhost:8080/users/${id}`, {

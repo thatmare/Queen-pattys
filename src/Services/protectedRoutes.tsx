@@ -1,6 +1,10 @@
  import { Navigate } from "react-router-dom";
 // import { getToken } from "../hooks/auth";
 
+const getUserRole = () => {
+ 
+}
+
 export const PrivateRoute = ({ children , redirectTo= '/'}) => {
     const token = localStorage.getItem('token');
     if (!token) {

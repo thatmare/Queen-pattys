@@ -9,11 +9,11 @@ import {
   fetchProducts,
   patchProducts,
 } from "../../Services/products.tsx";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function AdmonProducts() {
   const [products, setProducts] = useState([]);
-  
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -21,10 +21,13 @@ export function AdmonProducts() {
       navigate("/");
     }
   };
-  const [errorAdd, setErrorAdd] = useState('') 
+  const [errorAdd, setErrorAdd] = useState(''); 
+  const notifyDelete = () => toast.success("Producto eliminado");
+  const notifyAdd = () => toast.success("Nuevo producto");
+  const notifyEdit = () => toast.success("Producto editado");
 
   function handleProducts() {
-    fetchProducts()
+  return  fetchProducts()
       .then((data) => {
         setProducts(data);
       })
@@ -34,9 +37,10 @@ export function AdmonProducts() {
   }
 
   function handleEdit(id: number, name: string, price: number, type: string) {
-    patchProducts(id, name, price, type)
+    return patchProducts(id, name, price, type)
       .then(() => {
         handleProducts();
+        notifyEdit();
       })
       .catch((error) => {
         console.error("ERROR DE HANDLEEDIT", error);
@@ -44,20 +48,22 @@ export function AdmonProducts() {
   }
 
   function handleDelete(id: number | null) {
-    deleteProduct(id)
+    return deleteProduct(id)
       .then(() => {
         handleProducts();
+        notifyDelete();
       })
       .catch((error) => {
         console.error("ERROR DE HANDLEDELETE", error);
       });
   }
 
-  function handleAddProduct(name: string, price: number, type: string) {
-    postProducts(name, price, type)
+  function handleAddProduct(name: string, price: number, type: string): Promise<void>|Promise <object> {
+    return postProducts(name, price, type)
       .then(() => {
         setErrorAdd('');
         handleProducts();
+        notifyAdd();
       })
       .catch((error) => {
         console.error("AQUI ERROR DE HANDLEADD", error);
@@ -82,6 +88,12 @@ export function AdmonProducts() {
           ProductsItems={products}
           error={errorAdd}
         ></ProductsTable>
+        <ToastContainer
+          theme="dark"
+          toastClassName={() => "flex bg-blackInput p-4 rounded justify-between border-2 border-kitchenText"}
+          bodyClassName={() => "flex flex-row text-kitchenText items-center"}
+          hideProgressBar
+        />
       </section>
     </>
   );

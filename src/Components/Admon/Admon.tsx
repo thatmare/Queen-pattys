@@ -9,7 +9,6 @@ import {
   patchUsers,
 } from "../../Services/users.tsx";
 import { useState, useEffect } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,13 +21,12 @@ export function Admon() {
       navigate("/");
     }
   };
-  const [errorAdd, setErrorAdd] = useState("");
-  const notifyDelete = () => toast.success("Usuarix eliminadx.");
-  const notifyAdd = () => toast.success("Nuevx usuarix.");
-  const notifyEdit = () => toast.success("Usuarix editadx.");
+  const notifyDelete = () => toast.success("Usuarix eliminadx");
+  const notifyAdd = () => toast.success("Nuevx usuarix");
+  const notifyEdit = () => toast.success("Usuarix editadx");
 
   function handleUsers() {
-    getUsers()
+    return getUsers()
       .then((data) => {
         setUsers(data);
       })
@@ -37,16 +35,16 @@ export function Admon() {
       });
   }
 
-  function handleDelete(userID: number): Promise<boolean> {
+  function handleDelete(userID: number) {
     return deleteUsers(userID)
       .then(() => {
         handleUsers();
-        console.log(true);
-        return true;
+        notifyDelete();
+
       })
       .catch((error) => {
         console.error("ERROR DE HANDLEDELETE", error);
-        return false;
+        
       });
   }
 
@@ -56,9 +54,10 @@ export function Admon() {
     password: string,
     role: string
   ) {
-    patchUsers(userID, email, password, role)
+  return  patchUsers(userID, email, password, role)
       .then(() => {
         handleUsers();
+        notifyEdit();
       })
       .catch((error) => {
         console.error("ERROR DE HANDLEEDIT", error);
@@ -66,20 +65,12 @@ export function Admon() {
   }
 
   function handleAddUser(email: string, password: string, role: string) {
-    postUser(email, password, role)
+   return postUser(email, password, role)
       .then((data) => {
         console.log(data, "aqui data"); // en data está el mensaje de error como string
-        if (data === "Email and password are required") {
-          setErrorAdd("Correo y contraseña son requeridos.");
-        } else if (data === "Password is too short") {
-          setErrorAdd("La contraseña es muy corta.");
-        } else if (data === "Email already exists") {
-          setErrorAdd("El correo ya está en uso.");
-        } else {
-          console.log("aqui data", data);
-          setErrorAdd("");
-          handleUsers();
-        }
+       
+        handleUsers();
+        notifyAdd();
       })
       .catch((error) => {
         console.error("AQUI ERROR DE HANDLEADD", error);
@@ -93,7 +84,7 @@ export function Admon() {
   return (
     <>
       <AdmonNavbar handleLogout={handleLogout} />
-      <section className="flex flex-col bg-gunMetal min-h-screen min-w-fit">
+      <section className="flex flex-col bg-gunMetal min-h-screen min-w-fit ">
         <div className="mt-10 ">
           <Logo />
         </div>
@@ -102,14 +93,10 @@ export function Admon() {
           handleDelete={handleDelete}
           handleEditUser={handleEdit}
           handleAddUser={handleAddUser}
-          error={errorAdd}
-          notifyDelete={notifyDelete}
-          notifyAdd={notifyAdd}
-          notifyEdit={notifyEdit}
         ></UsersTable>
         <ToastContainer
           theme="dark"
-          toastClassName={() => "flex bg-blackInput p-4 rounded justify-between"}
+          toastClassName={() => "flex bg-blackInput p-4 rounded justify-between border-2 border-kitchenText"}
           bodyClassName={() => "flex flex-row text-kitchenText items-center"}
           hideProgressBar
         />

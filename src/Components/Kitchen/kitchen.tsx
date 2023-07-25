@@ -6,6 +6,8 @@ import { Dialog, Transition} from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router";
 import { Navbar } from "../Navbar/Navbar.tsx";
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 
 interface Order {
   id: number;
@@ -124,15 +126,14 @@ export function Kitchen() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrderID, setSelectedOrderID] = useState<number | null>(null);
   const kitchenOrders = orders.filter((o) => o.status === "pending");
-  // console.log(kitchenOrders, "AQUI KITCHEN ORDERS");
   const navigate = useNavigate();
-  
   const handleLogout = () => {
     localStorage.removeItem("token");
     if (localStorage.getItem("token") === null) {
       navigate("/");
     }
   };
+  const notifyDelivering = () => toast.success('Pedido listo para entregar')
 
   function handleOrders() {
     getOrders()
@@ -148,6 +149,7 @@ export function Kitchen() {
     patchOrders(orderID)
       .then(() => {
         handleOrders();
+        notifyDelivering();
       })
       .catch((error) => {
         console.error("ERROR DE PATCH ORDERS", error);
@@ -163,7 +165,12 @@ export function Kitchen() {
       <Navbar handleLogout={handleLogout}/>
       <section className="flex flex-col justify-evenly items-start bg-gunMetal min-h-screen min-w-fit max-w-screen">
         <Logo />
-
+        <ToastContainer
+          theme="dark"
+          toastClassName={() => "flex bg-blackInput p-4 rounded justify-between border-2 border-kitchenText"}
+          bodyClassName={() => "flex flex-row text-kitchenText items-center"}
+          hideProgressBar
+        />
         {kitchenOrders.map((order) => (
           <div className="w-screen" key={order.id}>
             <div className="bg-blackInput rounded-3xl  max-w-screen m-6 border-3 border-teal-200 p-4">
