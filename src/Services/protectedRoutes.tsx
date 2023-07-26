@@ -1,23 +1,18 @@
- import { Navigate } from "react-router-dom";
-// import { getToken } from "../hooks/auth";
+import { ReactNode } from "react";
+import { Navigate } from "react-router-dom";
 
-const getUserRole = () => {
- 
-}
+export const PrivateRoute = ({
+  element,
+  allowedRoles,
+}: {
+  element: ReactNode;
+  allowedRoles: string[];
+}) => {
+  const userRoles = localStorage.getItem("role");
+  console.log("userRoles", userRoles);
 
-export const PrivateRoute = ({ children , redirectTo= '/'}) => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-     return <Navigate to={redirectTo} />;
-    } 
-    return children;  
-
-}
-// 
-
-// if (localStorage.getItem('token') === null) {
-//     return <Navigate to= "/" />;
-// } if (localStorage.getItem('token')) {
-//   return <Navigate to="/order" />;
-//   // window.location.href = '/order';
-// }
+  if (!userRoles || !allowedRoles.includes(userRoles)) {
+    return <Navigate to="/" />;
+  }
+  return <>{element} </>;
+};

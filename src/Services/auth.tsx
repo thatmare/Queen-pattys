@@ -1,7 +1,6 @@
 // import { Navigate} from "react-router-dom";
 
 
-
 export function loginAPI (options: object, setError:(error:string) => void) {
     let token = '';
 
@@ -15,8 +14,11 @@ export function loginAPI (options: object, setError:(error:string) => void) {
         .then(data => {
             token = data.accessToken;
             localStorage.setItem('token', token)
+            const role = data.user.role;
+            localStorage.setItem('role', role)
+            console.log(role)
             console.log(token)
-            return token
+            return {token, role}
             // Aquí puedes realizar acciones adicionales con el token
         })
         .catch(error => {

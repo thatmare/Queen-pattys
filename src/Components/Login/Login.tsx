@@ -32,9 +32,14 @@ function Login() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await loginAPI(options, setError);
+    const userRole = localStorage.getItem("role");
     // console.log('aqui va llamada', token)
-    if (localStorage.getItem("token")) {
+    if (userRole === "admin") {
+      navigate("/admon-users");
+    } else if (userRole === "meserx") {
       navigate("/order");
+    } else if (userRole === "jefe de cocina") {
+      navigate("/kitchen");
     }
   };
 
