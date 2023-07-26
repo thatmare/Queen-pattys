@@ -27,7 +27,7 @@ function UsersTable({
     password: string,
     role: string
   ) => void;
-  handleAddUser: (email: string, password: string, role: string) => void;
+  handleAddUser: (email: string, password: string, role: string) => Promise<object>;
 }) {
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [selectedUserEdit, setSelectedUserEdit] = useState<number | null>(null);
@@ -97,7 +97,7 @@ function UsersTable({
 function AddUser({
   handleAddUser,
 }: {
-  handleAddUser: (email: string, password: string, role: string) => void;
+  handleAddUser: (email: string, password: string, role: string) => Promise<object>;
 }) {
   // const [openAdd, setOpenAdd] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -130,18 +130,23 @@ function AddUserModal({
   onSubmit,
 }: {
   onClose: () => void;
-  onSubmit: (email: string, password: string, role: string) => void;
+  onSubmit: (email: string, password: string, role: string) => Promise<object>;
 }) {
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(email, password, role);
-    onClose();
+    onSubmit(email, password, role)
+      .then(onClose)
+      .catch((err) => 
+      // console.log("Error:", err)
+      setError("El correo ya existe")
+      );
   };
 
   return (
@@ -196,6 +201,7 @@ function AddUserModal({
                             className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 mb-5 text-sm text-black"
                             required
                           />
+                          {error && <p className="text-red-400 font-medium text-sm mb-5">{error}</p>}
                           <label className="text-sm text-white">
                             Contraseña
                           </label>

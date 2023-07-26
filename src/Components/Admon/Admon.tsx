@@ -71,10 +71,8 @@ export function Admon() {
        
         handleUsers();
         notifyAdd();
+        return data;
       })
-      .catch((error) => {
-        console.error("AQUI ERROR DE HANDLEADD", error);
-      });
   }
 
   useEffect(() => {
