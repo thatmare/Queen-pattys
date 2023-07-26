@@ -67,8 +67,6 @@ export function Admon() {
   function handleAddUser(email: string, password: string, role: string) {
    return postUser(email, password, role)
       .then((data) => {
-        console.log(data, "aqui data"); // en data está el mensaje de error como string
-       
         handleUsers();
         notifyAdd();
         return data;
