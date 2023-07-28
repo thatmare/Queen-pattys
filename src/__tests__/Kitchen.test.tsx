@@ -1,4 +1,4 @@
-import { Kitchen } from "../Components/Kitchen/Kitchen";
+import { Kitchen } from "../Components/Kitchen/kitchen";
 import { render, waitFor} from "@testing-library/react";
 import { MemoryRouter} from "react-router-dom";
 import fetchMock from "jest-fetch-mock";

@@ -1,25 +1,22 @@
-import { postOrders } from "../../Services/postOrders.tsx";
+import { postOrders } from "../../Services/orders.tsx";
 
-interface MenuBtnProps {
-  meals: string[];
-} 
-
-function MenuBtn({ meals }: MenuBtnProps) {
+function MenuBtn({ meals, setCategory }: { meals: string[]; setCategory: (menu: string) => void}) {
   return (
     <>
       {meals.map(
         (
-          menu // se mapea sobre el array
+          menu 
         ) => (
           <ul
             key={menu}
-            className="bg-blackBtn rounded-3xl w-full h-20 flex justify-evenly items-center m-3 border-2 border-amber-200"
+            onClick={() => setCategory(menu)}
+            className="bg-blackBtn rounded-3xl w-full h-20 flex justify-evenly items-center m-3 border-2 border-amber-200 hover:cursor-pointer active:bg-amber-200 active:text-blackBtn"
           >
             {menu === "Desayuno" && (
-              <img className="w-16" src="src\assets\breakfast.png"></img>
+              <img className="w-16" src="\breakfast.png" alt="A sandwich as the breakfast icon."></img>
             )}
-            {menu === "Almuerzo y cena" && (
-              <img className="w-16" src="src\assets\lunch.png"></img>
+            {menu === "Almuerzo" && (
+              <img className="w-16" src="\lunch.png" alt="A combo made of french fries, burger and a soda."></img>
             )}
             <li className="text-xl" key={menu}>
               {menu}
@@ -42,19 +39,20 @@ interface MenuItems {
   items: MenuItem[];
   counters: { [key: string]: number };
   setCounters: React.Dispatch<React.SetStateAction<{ [key: string]: number }>>;
+  category: string;
 }
 
 interface ClientProps {
   setSelectedClient: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function FoodItems({ items, counters, setCounters }: MenuItems) {
+function FoodItems({ items, counters, setCounters, category }: MenuItems) {
+
   const handleDecrement = (itemName: string) => {
     if (counters[itemName] > 0) {
       setCounters((prevCounters) => ({
-        // actualiza el estado de counters. Se utiliza una fx como argumento, que recibe el estado anterior
-        ...prevCounters, // operador de propagación para copiar todos los pares clave-valor del estado anterior en un nuevo objeto
-        [itemName]: prevCounters[itemName] - 1, // crea o actualiza una propiedad en el nuevo objeto utilizando el nombre del elemento como clave y resta 1 al valor del contador para el elemento específico
+        ...prevCounters, 
+        [itemName]: prevCounters[itemName] - 1, 
       }));
     }
   };
@@ -65,9 +63,11 @@ function FoodItems({ items, counters, setCounters }: MenuItems) {
     }));
   };
 
+  const filteredItems = items.filter((item) => item.type === category);
+
   return (
     <>
-      {items.map((item) => (
+      {filteredItems.map((item) => (
         <ul
           className="bg-blackBtn rounded-3xl w-84 h-32 flex flex-col justify-evenly items-start m-3 p-6 border-2 border-pink-400 text-xl"
           key={item.name}
@@ -89,7 +89,7 @@ function FoodItems({ items, counters, setCounters }: MenuItems) {
             </div>
           </div>
         </ul>
-      ))}
+      ))}    
     </>
   );
 }
@@ -104,11 +104,11 @@ function Client({ setSelectedClient }: ClientProps) {
       name="mesas"
       id="mesas"
       onChange={handleClient}
-      className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4"
+      className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 py-2 p-2 h-13"
     >
-      <option value="NO CLIENT">Selecciona una mesa</option>
-      <option value="mesa1">Mesa 1</option>
-      <option value="mesa2">Mesa 2</option>
+      <option className="text-sm " value="NO CLIENT">Selecciona una mesa</option>
+      <option className="text-sm " value="mesa1">Mesa 1</option>
+      <option className="text-sm " value="mesa2">Mesa 2</option>
     </select>
   );
 }
@@ -118,7 +118,7 @@ function OrderSum({
   menuItems,
   selectedClient,
   onOrderSubmit,
-}: {
+} : {
   counters: { [key: string]: number };
   menuItems: MenuItem[];
   selectedClient: string;
@@ -131,17 +131,17 @@ function OrderSum({
   );
   const handleOrder = () => {
     const order = {
-      client: selectedClient, // recuperar de seleccion de mesa
+      client: selectedClient, 
       id: "",
       products: filteredItems.map(([itemName, qty]) => {
         const menuItem = menuItems.find((item) => item.name === itemName);
         return {
           qty: qty,
           product: {
-            id: menuItem?.id, // obtener id de la API
+            id: menuItem?.id, 
             name: itemName,
-            price: menuItem?.price, // obtener precio de la API
-            type: menuItem?.type, // obtener de la API
+            price: menuItem?.price, 
+            type: menuItem?.type, 
             dataEntry: new Date().toLocaleString(),
           },
         };
@@ -190,6 +190,7 @@ function OrderSum({
         className="bg-celadon text-gunMetal mx-auto block w-fit rounded-md px-3 py-1.5 font-semibold shadow-sm sm:leading-7 my-6"
         type="button"
         onClick={handleOrder}
+        data-testid="post-order-btn"
       >
         Enviar a cocina
       </button>

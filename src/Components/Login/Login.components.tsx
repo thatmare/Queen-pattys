@@ -2,8 +2,8 @@ import { ChangeEvent } from "react";
 
 function Logo() {
   return (
-    <figure className="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img src="src\assets\queex4.png"></img>
+    <figure className="sm:mx-auto sm:w-full sm:max-w-sm m-6">
+      <img src="\queex4.png" alt="Logo for Queen Patty's is a neon sign with pink title Queen Patty's and an aqua outline."></img>
     </figure>
   );
 }
@@ -77,7 +77,7 @@ function ButtonSumbit() {
     <div>
       <button
         type="submit"
-        className="flex w-full justify-center rounded-md bg-celadon px-3 py-1.5 text-md font-semibold leading-6 text-black shadow-sm hover:bg-teal-600  sm:leading-7 mt-12"
+        className="flex w-full justify-center rounded-md bg-celadon px-3 py-1.5 text-md font-semibold leading-6 text-gunMetal shadow-sm hover:bg-teal-600  sm:leading-7 mt-12"
       >
         Ingresa
       </button>
@@ -89,7 +89,7 @@ function IconsFood() {
   return (
     <div>
       <figure className="pt-10 mx-auto h-15 w-auto">
-        <img src="src\assets\icons_food.png"></img>
+        <img src="\icons_food.png" alt="Neon burger, french fries and sandwich icons."></img>
       </figure>
     </div>
   );

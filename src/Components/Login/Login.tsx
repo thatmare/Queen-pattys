@@ -32,15 +32,19 @@ function Login() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await loginAPI(options, setError);
-    // console.log('aqui va llamada', token)
-    if (localStorage.getItem("token")) {
+    const userRole = localStorage.getItem("role");
+    if (userRole === "admin") {
+      navigate("/admon-users");
+    } else if (userRole === "waiter") {
       navigate("/order");
+    } else if (userRole === "chef") {
+      navigate("/kitchen");
     }
   };
 
   return (
     <section className="flex bg-gunMetal min-h-screen min-w-fit">
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 text-xl">
         <Logo />
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleSubmit}>
