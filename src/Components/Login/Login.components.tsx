@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 
 function Logo() {
   return (
-    <figure className="sm:mx-auto sm:w-full sm:max-w-sm mt-6">
+    <figure className="sm:mx-auto sm:w-full sm:max-w-sm m-6">
       <img src="src\assets\queex4.png"></img>
     </figure>
   );

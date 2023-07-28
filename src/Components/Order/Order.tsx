@@ -22,7 +22,8 @@ function Order() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    if (localStorage.getItem("token") === null) {
+    localStorage.removeItem("role")
+    if (localStorage.getItem("token") === null && localStorage.getItem("role") === null) {
       navigate("/");
     }
   };

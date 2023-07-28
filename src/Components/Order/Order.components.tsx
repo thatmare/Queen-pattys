@@ -51,9 +51,8 @@ function FoodItems({ items, counters, setCounters, category }: MenuItems) {
   const handleDecrement = (itemName: string) => {
     if (counters[itemName] > 0) {
       setCounters((prevCounters) => ({
-        // actualiza el estado de counters. Se utiliza una fx como argumento, que recibe el estado anterior
-        ...prevCounters, // operador de propagación para copiar todos los pares clave-valor del estado anterior en un nuevo objeto
-        [itemName]: prevCounters[itemName] - 1, // crea o actualiza una propiedad en el nuevo objeto utilizando el nombre del elemento como clave y resta 1 al valor del contador para el elemento específico
+        ...prevCounters, 
+        [itemName]: prevCounters[itemName] - 1, 
       }));
     }
   };
@@ -65,9 +64,6 @@ function FoodItems({ items, counters, setCounters, category }: MenuItems) {
   };
 
   const filteredItems = items.filter((item) => item.type === category);
-
-  // const breakfastItems = items.filter((item) => item.type === "Desayuno");
-  // const lunchItems = items.filter((item) => item.type === "Almuerzo");
 
   return (
     <>
@@ -108,7 +104,7 @@ function Client({ setSelectedClient }: ClientProps) {
       name="mesas"
       id="mesas"
       onChange={handleClient}
-      className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-lg m-4 py-2 p-2"
+      className="bg-blackBtn border-2 border-cyan-300 rounded-2xl text-xl m-4 py-2 p-2 h-13"
     >
       <option className="text-sm " value="NO CLIENT">Selecciona una mesa</option>
       <option className="text-sm " value="mesa1">Mesa 1</option>
@@ -135,17 +131,17 @@ function OrderSum({
   );
   const handleOrder = () => {
     const order = {
-      client: selectedClient, // recuperar de seleccion de mesa
+      client: selectedClient, 
       id: "",
       products: filteredItems.map(([itemName, qty]) => {
         const menuItem = menuItems.find((item) => item.name === itemName);
         return {
           qty: qty,
           product: {
-            id: menuItem?.id, // obtener id de la API
+            id: menuItem?.id, 
             name: itemName,
-            price: menuItem?.price, // obtener precio de la API
-            type: menuItem?.type, // obtener de la API
+            price: menuItem?.price, 
+            type: menuItem?.type, 
             dataEntry: new Date().toLocaleString(),
           },
         };

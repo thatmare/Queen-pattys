@@ -1,8 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 
 export function Navbar({ handleLogout, handleDelivers } : { handleLogout: () => void; handleDelivers: () => void } ) {
-// void because it is a function that does not return any value
-// it also does not receive params
   return (
     <Disclosure as="nav" className="bg-gunMetal border-b border-kitchenText">
       {() => (

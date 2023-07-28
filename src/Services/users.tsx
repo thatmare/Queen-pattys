@@ -85,6 +85,4 @@ function deleteUsers(id: number) {
     });
 }
 
-// postUser('nuevonuevo@hotmail.com', '123456', 'admin')
-
 export { getUsers, postUser, patchUsers, deleteUsers }

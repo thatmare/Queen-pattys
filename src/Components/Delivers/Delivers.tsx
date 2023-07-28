@@ -128,7 +128,8 @@ export function Delivers() {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
-    if (localStorage.getItem("token") === null) {
+    localStorage.removeItem("role")
+    if (localStorage.getItem("token") === null && localStorage.getItem("role") === null) {
       navigate("/");
     }
   };
@@ -166,7 +167,7 @@ export function Delivers() {
   return (
     <>
       <DeliversNavbar handleLogout={handleLogout} returns={returns} />
-      <section className="flex flex-col justify-evenly items-start bg-gunMetal min-h-screen min-w-fit max-w-screen">
+      <section className="flex flex-col justify-start items-start bg-gunMetal min-h-screen min-w-fit max-w-screen">
         <Logo />
         <ToastContainer
           theme="dark"
@@ -189,7 +190,6 @@ export function Delivers() {
                     </p>
                   </div>
                 </div>
-                {/* empieza mapeo para insertar name ?? */}
                 {order.products.map((element, index) => (
                   <div
                     className="flex flex-1 items-end justify-between text-sm"
@@ -200,7 +200,6 @@ export function Delivers() {
                     </p>
                   </div>
                 ))}
-                {/* termina para insertar qty */}
               </div>
 
               <div className="flex flex-row-reverse ">

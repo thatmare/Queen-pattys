@@ -1,5 +1,3 @@
-// import { Navigate} from "react-router-dom";
-
 
 export function loginAPI (options: object, setError:(error:string) => void) {
     let token = '';
@@ -17,12 +15,10 @@ export function loginAPI (options: object, setError:(error:string) => void) {
             const role = data.user.role;
             localStorage.setItem('role', role)
             return {token, role}
-            // Aquí puedes realizar acciones adicionales con el token
         })
         .catch(error => {
             console.error(error)
             setError('Error al iniciar sesión. Por favor, verifica tus credenciales')
-            // throw error;
         });
 }
 

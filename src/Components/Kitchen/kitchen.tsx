@@ -127,9 +127,11 @@ export function Kitchen() {
   const [selectedOrderID, setSelectedOrderID] = useState<number | null>(null);
   const kitchenOrders = orders.filter((o) => o.status === "pending");
   const navigate = useNavigate();
+  
   const handleLogout = () => {
     localStorage.removeItem("token");
-    if (localStorage.getItem("token") === null) {
+    localStorage.removeItem("role")
+    if (localStorage.getItem("token") === null && localStorage.getItem("role") === null) {
       navigate("/");
     }
   };
@@ -186,7 +188,6 @@ export function Kitchen() {
                     </p>
                   </div>
                 </div>
-                {/* empieza mapeo para insertar name ?? */}
                 {order.products.map((element, index) => (
                   <div
                     className="flex flex-1 items-end justify-between text-sm"
@@ -197,7 +198,6 @@ export function Kitchen() {
                     </p>
                   </div>
                 ))}
-                {/* termina para insertar qty */}
               </div>
 
               <div className="flex flex-row-reverse ">
