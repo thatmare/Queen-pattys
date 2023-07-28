@@ -162,7 +162,7 @@ export function Kitchen() {
 
   return (
     <>
-      <Navbar handleLogout={handleLogout}/>
+      <Navbar handleLogout={handleLogout} handleDelivers={handleLogout}/>
       <section className="flex flex-col bg-gunMetal min-h-screen min-w-fit max-w-screen">
         <Logo />
         <ToastContainer
