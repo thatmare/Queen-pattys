@@ -13,10 +13,10 @@ function MenuBtn({ meals, setCategory }: { meals: string[]; setCategory: (menu: 
             className="bg-blackBtn rounded-3xl w-full h-20 flex justify-evenly items-center m-3 border-2 border-amber-200 hover:cursor-pointer active:bg-amber-200 active:text-blackBtn"
           >
             {menu === "Desayuno" && (
-              <img className="w-16" src="src\assets\breakfast.png"></img>
+              <img className="w-16" src="\breakfast.png" alt="A sandwich as the breakfast icon."></img>
             )}
             {menu === "Almuerzo" && (
-              <img className="w-16" src="src\assets\lunch.png"></img>
+              <img className="w-16" src="\lunch.png" alt="A combo made of french fries, burger and a soda."></img>
             )}
             <li className="text-xl" key={menu}>
               {menu}

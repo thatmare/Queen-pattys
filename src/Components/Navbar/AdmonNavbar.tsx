@@ -37,7 +37,7 @@ export function AdmonNavbar({ handleLogout} : { handleLogout: () => void}) {
                   onClick={handleLogout}
                 >
                   <span className="sr-only">Log out</span>
-                  <img src="src\assets\icon _logout_.png" alt="Log out icon" />
+                  <img src="\icon _logout_.png" alt="Log out icon" />
                 </button>
               </div>
             </div>
