@@ -48,7 +48,7 @@ function patchUsers(id: number, email: string, password: string, role: string): 
         console.error('Error: email, password and role are required')
     }
     const token = localStorage.getItem('token');
-    return fetch(`https://burger-queen-api-mock-production-9d92.up.railway.app/${id}`, {
+    return fetch(`https://burger-queen-api-mock-production-9d92.up.railway.app/users/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ function patchUsers(id: number, email: string, password: string, role: string): 
 
 function deleteUsers(id: number) {
     const token = localStorage.getItem('token');
-    return fetch(`https://burger-queen-api-mock-production-9d92.up.railway.app/${id}`, {
+    return fetch(`https://burger-queen-api-mock-production-9d92.up.railway.app/users/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
