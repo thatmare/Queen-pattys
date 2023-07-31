@@ -1,80 +1,91 @@
-import { Kitchen } from "../Components/Kitchen/kitchen";
-import { render, waitFor} from "@testing-library/react";
-import { MemoryRouter} from "react-router-dom";
-import fetchMock from "jest-fetch-mock";
-// import * as getOrders from "../Services/getOrders";
+
+// import { Kitchen } from "../Components/Kitchen/kitchen";
+// import { render } from "@testing-library/react";
+ import { MemoryRouter} from "react-router-dom";
+// //import userEvent from "@testing-library/user-event";
+// import { screen } from "@testing-library/dom";
+// import fetchMock from "jest-fetch-mock";
+
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom'; // For custom matchers like toBeInTheDocument
+import fetchMock from 'jest-fetch-mock'; // For mocking fetch API calls
+import { Kitchen } from '../Components/Kitchen/kitchen'; // Update the path according to your file structure// Update the path according to your file structure
 
 
-describe("Kitchen", () => {
+const mockOrders = [
+  {
+    id: 1,
+    client: 'John Doe',
+    status: 'pending',
+    dataEntry: '2023-07-31T10:00:00',
+    products: [
+      {
+        qty: 2,
+        product: {
+          name: 'Burger',
+          price: 10,
+          type: 'food',
+          dataEntry: '2023-07-31T10:00:00',
+        },
+      },
+      {
+        qty: 1,
+        product: {
+          name: 'Coffee',
+          price: 5,
+          type: 'drink',
+          dataEntry: '2023-07-31T10:00:00',
+        },
+      },
+    ],
+  },
+  // Add more orders as needed for testing
+];
 
-    beforeAll(() => {
-        fetchMock.enableMocks();
-      });
-    
-      beforeEach(() => {
-        fetchMock.resetMocks();
-      });
+jest.mock('../Services/orders.tsx', () => ({
+  getOrders: () => Promise.resolve(mockOrders),
+}));
 
 
+beforeEach(() => {
+  fetchMock.resetMocks();
+  // Mock getOrders API call
+  fetchMock.mockIf('https://burger-queen-api-mock-production-9d92.up.railway.app/orders', JSON.stringify(mockOrders));
+});
 
-  it("Renders Kitchen component", () => {
-
-
+describe('Kitchen', () => {
+  it('renders correctly', async () => {
     render(
       <MemoryRouter>
-        <Kitchen />
-      </MemoryRouter>
+    <Kitchen />
+    </MemoryRouter>
     );
-    expect(Kitchen).toBeTruthy();
+
+    // Assert that the component renders without errors
+    expect(screen.getByTestId('kitchen-component')).toBeInTheDocument();
+
+    // Mock the getOrders API call and wait for the component to fetch orders
+    await waitFor(() => {
+      // Assert that the orders are displayed on the screen
+      expect(screen.getByText("Orden ID: 1")).toBeInTheDocument();
+    });
   });
 
-  it.only("Renders the kitchen orders", async () => {
-   
-  const  kitchenOrders = [ 
-      {
-        "id": 1,
-        "client": "Micaela",
-        "products": [
-          {
-            "id": 1,
-            "name": "Café americano",
-            "price": 5,
-            "type": "bebida",
-            "image": "https://www.nespresso.com/ncp/res/uploads/recipes/nespresso-recipes-Iced-Americano.jpg"
-          },
-          {
-            "id": 2,
-            "name": "Café con leche",
-            "price": 7,
-            "type": "bebida",
-            "image": "https://www.nespresso.com/ncp/res/uploads/recipes/nespresso-recipes-Caf%C3%A9-con-leche.jpg"
-          }
-        ],
-        "status": "pending"
-      },
-    ]
-
+  it('displays the modal when "Completado" button is clicked', async () => {
     render(
       <MemoryRouter>
-        <Kitchen />
-      </MemoryRouter>
+    <Kitchen />
+    </MemoryRouter>
     );
-  
+
+    // Mock the getOrders API call and wait for the component to fetch orders
     await waitFor(() => {
-      expect(kitchenOrders).toBeInTheDocument();
-      });
+      // Find the "Completado" button and click it
+      const completadoButton = screen.getByText("Completado");
+      fireEvent.click(completadoButton);
     });
 
-
-// it("Has a button to mark the order as ready", () => {
-
-//   render(
-//     <MemoryRouter>
-//       <Kitchen />
-//     </MemoryRouter>
-//   );
-
-//   const button = screen.getByText("Completado");
-//   expect(button).toBeInTheDocument();
-// });
+    // Assert that the modal is displayed on the screen
+    expect(screen.getByText("Confirmación")).toBeInTheDocument();
+  });
 });
