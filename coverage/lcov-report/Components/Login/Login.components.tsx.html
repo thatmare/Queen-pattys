@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>1/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -164,7 +164,7 @@
 <a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,7 +178,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,7 +209,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,7 +236,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,7 +249,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -258,25 +258,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChangeEvent } from "react";
 &nbsp;
 function Logo() {
   return (
-    &lt;figure className="sm:mx-auto sm:w-full sm:max-w-sm"&gt;
-      &lt;img src="src\assets\queex4.png"&gt;&lt;/img&gt;
+    &lt;figure className="sm:mx-auto sm:w-full sm:max-w-sm m-6"&gt;
+      &lt;img src="\queex4.png" alt="Logo for Queen Patty's is a neon sign with pink title Queen Patty's and an aqua outline."&gt;&lt;/img&gt;
     &lt;/figure&gt;
   );
 }
 &nbsp;
-function InputEmail({
+function <span class="fstat-no" title="function not covered" >InputEmail(</span>{
   email,
   onChange,
 }: {
   email: string;
   onChange: (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void;
 }) {
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div&gt;
       &lt;label
         htmlFor="email"
@@ -300,14 +300,14 @@ function InputEmail({
   );
 }
 &nbsp;
-function InputPassword({
+function <span class="fstat-no" title="function not covered" >InputPassword(</span>{
   password,
   onChange,
 }: {
   password: string;
   onChange: (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void;
 }) {
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div&gt;
       &lt;div className="flex items-center justify-between"&gt;
         &lt;label
@@ -333,12 +333,12 @@ function InputPassword({
   );
 }
 &nbsp;
-function ButtonSumbit() {
-  return (
+function <span class="fstat-no" title="function not covered" >ButtonSumbit(</span>) {
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div&gt;
       &lt;button
         type="submit"
-        className="flex w-full justify-center rounded-md bg-celadon px-3 py-1.5 text-md font-semibold leading-6 text-black shadow-sm hover:bg-teal-600  sm:leading-7 mt-12"
+        className="flex w-full justify-center rounded-md bg-celadon px-3 py-1.5 text-md font-semibold leading-6 text-gunMetal shadow-sm hover:bg-teal-600  sm:leading-7 mt-12"
       &gt;
         Ingresa
       &lt;/button&gt;
@@ -346,11 +346,11 @@ function ButtonSumbit() {
   );
 }
 &nbsp;
-function IconsFood() {
-  return (
+function <span class="fstat-no" title="function not covered" >IconsFood(</span>) {
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div&gt;
       &lt;figure className="pt-10 mx-auto h-15 w-auto"&gt;
-        &lt;img src="src\assets\icons_food.png"&gt;&lt;/img&gt;
+        &lt;img src="\icons_food.png" alt="Neon burger, french fries and sandwich icons."&gt;&lt;/img&gt;
       &lt;/figure&gt;
     &lt;/div&gt;
   );
@@ -364,7 +364,7 @@ export { Logo, InputEmail, InputPassword, ButtonSumbit, IconsFood };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-24T18:14:41.522Z
+                at 2023-07-31T21:40:37.806Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

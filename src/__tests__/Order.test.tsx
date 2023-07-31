@@ -1,97 +1,116 @@
 import { Order } from "../Components/Order/Order";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import userEvent from "@testing-library/user-event";
-
+import fetchMock from "jest-fetch-mock";
 import * as orderService from "../Services/orders";
-
-const localStorageMock = (function () {
-  const store: { [key: string]: string } = {};
-
-  return {
-    getItem(key: string) {
-      return store[key];
-    },
-
-    setItem(key: string, value: string) {
-      store[key] = value;
-    },
-
-    removeItem(key: string) {
-      delete store[key];
-    },
-  };
-})();
-
-Object.defineProperty(window, "localStorage", { value: localStorageMock });
 
 const navigateMock = jest.fn();
 jest.mock("react-router", () => ({
   ...jest.requireActual("react-router"),
   useNavigate: () => navigateMock,
 }));
+const mockProducts = [
+  {
+    id: 1,
+    name: "Café americano",
+    price: 1000,
+    type: "Desayuno",
+    dateEntry: "2022-03-05 15:14:10",
+  },
+  {
+    id: 2,
+    name: "Malteada",
+    price: 1000,
+    type: "Almuerzo",
+    dateEntry: "2022-03-05 15:14:10",
+  },
+];
 
-function mockProductsRes(body: object): Response {
-  return {
-    json: () => Promise.resolve(body),
-  } as Response;
-}
+jest.mock("../Services/products", () => ({
+  fetchProducts: () => Promise.resolve(mockProducts),
+}));
+
+beforeEach(() => {
+  fetchMock.resetMocks();
+  fetchMock.mockIf(
+    "https://burger-queen-api-mock-production-9d92.up.railway.app/products",
+    JSON.stringify(mockProducts)
+  );
+});
 
 describe("Order", () => {
-  it("Renderiza el componente Order", () => {
+  it("Renders Order component", () => {
     expect(Order).toBeTruthy();
   });
 
-  it("Fetches the products from the API.", () => {
-    const jsonBody = {
-      products: [
-        {
-          id: 1,
-          name: "Café americano",
-          price: 1000,
-          type: "Desayuno",
-          dateEntry: "2022-03-05 15:14:10",
-        },
-      ],
-    };
-
-    global.fetch = jest.fn().mockImplementation(() => Promise.resolve());
-    jest
-      .spyOn(global, "fetch")
-      .mockImplementation(() => Promise.resolve(mockProductsRes(jsonBody)));
-    // the param expected is a valid Response object, however, Response is not global in Node nor JSDOM, so we have to mock it
-
+  it("Fetches the products from the API.", async () => {
     render(
       <MemoryRouter>
         <Order></Order>
       </MemoryRouter>
     );
 
-    setTimeout(() => {
+    await waitFor(() => {
       expect(screen.getByText("Café americano")).toBeInTheDocument();
-    }, 5000);
-
-    // TypeError: items.map is not a function y no se encuentra el texto en el DOM: ¿se está tardando en renderizar?
+    });
   });
 
-  it('must post the order in the API when clicking the button Enviar a cocina', () => {
-    const postOrdersSpy = jest.spyOn(orderService, "postOrders")
-  
+  it("Increases the quantity of items when clicking the plus + button", async () => {
     render(
       <MemoryRouter>
-        <Order/>
+        <Order />
       </MemoryRouter>
-    )
-    const postOrderBtn = screen.getByTestId('post-order-btn');
+    );
+
+    await waitFor(() => {
+      const incrementBtn = screen.getByTestId("increment-btn");
+      const itemQtySpan = screen.getByTestId("item-qty-span");
+
+      fireEvent.click(incrementBtn);
+
+      expect(itemQtySpan.textContent).toBe("1");
+    });
+  });
+
+  it("Decreases the quantity of items when clicking the - button", async () => {
+    render(
+      <MemoryRouter>
+        <Order />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      const incrementBtn = screen.getByTestId("increment-btn");
+      const decrementBtn = screen.getByTestId("decrement-btn");
+      const itemQtySpan = screen.getByTestId("item-qty-span");
+
+      fireEvent.click(incrementBtn);
+      fireEvent.click(decrementBtn);
+
+      expect(itemQtySpan.textContent).toBe("0");
+    });
+  });
+
+  it("Posts the order in the API when clicking the button Enviar a cocina", () => {
+    const postOrdersSpy = jest.spyOn(orderService, "postOrders");
+
+    render(
+      <MemoryRouter>
+        <Order />
+      </MemoryRouter>
+    );
+    const postOrderBtn = screen.getByTestId("post-order-btn");
     fireEvent.click(postOrderBtn);
 
     expect(postOrdersSpy).toHaveBeenCalled();
-  })
+  });
 });
 
 describe("handleLogout", () => {
-  it("should remove the token when clicking in the logout button", () => {
+  it("Removes the token when clicking in the logout button", async () => {
     localStorage.setItem("token", "test-token");
+    localStorage.setItem("role", "admin");
     const user = userEvent.setup();
 
     render(
@@ -103,10 +122,11 @@ describe("handleLogout", () => {
     const logoutBtn = screen.getByTestId("logout-btn");
     user.click(logoutBtn);
 
-    setTimeout(() => {
-      expect(localStorageMock.getItem("token")).toBeNull();
+    await waitFor(() => {
+      expect(localStorage.getItem("token")).toBeNull();
+      expect(localStorage.getItem("role")).toBeNull();
       expect(navigateMock).toHaveBeenCalledWith("/");
       expect(navigateMock).toBeCalledTimes(1);
-    }, 1000);
+    });
   });
 });
