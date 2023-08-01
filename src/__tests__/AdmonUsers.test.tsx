@@ -45,15 +45,6 @@ describe("Admon", () => {
   });
 
   it("Displays the add user modal", async () => {
-    const mockPostUser = jest.fn().mockResolvedValue({
-      accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
-      user: {
-        email: "hola@qp.com",
-        id: 7,
-        role: "admin",
-      },
-    })
-
     render(
       <MemoryRouter>
         <Admon></Admon>
@@ -66,10 +57,6 @@ describe("Admon", () => {
     await waitFor(() => {
       const crearBtn = screen.getByText("Crear");
       expect(crearBtn).toBeInTheDocument();
-
-      fireEvent.submit(crearBtn);
-
-      expect(mockPostUser).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -10,7 +10,7 @@ function MenuBtn({ meals, setCategory }: { meals: string[]; setCategory: (menu: 
           <ul
             key={menu}
             onClick={() => setCategory(menu)}
-            className="bg-blackBtn rounded-3xl w-full h-20 flex justify-evenly items-center m-3 border-2 border-amber-200 hover:cursor-pointer active:bg-amber-200 active:text-blackBtn"
+            className="bg-blackBtn rounded-3xl h-20 flex justify-evenly items-center m-3 border-2 border-amber-200 hover:cursor-pointer active:bg-amber-200 active:text-blackBtn"
           >
             {menu === "Desayuno" && (
               <img className="w-16" src="\breakfast.png" alt="A sandwich as the breakfast icon."></img>
@@ -73,11 +73,11 @@ function FoodItems({ items, counters, setCounters, category }: MenuItems) {
           key={item.name}
         >
           <li className="font-medium text-xl">
-            {item.name} {/* Nombre del platillo */}
+            {item.name}
           </li>
           <div className="flex justify-between w-full">
             <li className="font-light">
-              S./{item.price} {/* Precio del platillo */}
+              S./{item.price}
             </li>
 
             <div className="flex justify-between w-1/4 font-medium text-xl">

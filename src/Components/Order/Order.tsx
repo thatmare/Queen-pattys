@@ -54,7 +54,7 @@ function Order() {
           bodyClassName={() => "flex flex-row text-kitchenText items-center"}
           hideProgressBar
         />
-      <div className="flex justify-center items-center w-4/6 md:w-4/5 lg:w-3/5 mt-10">
+      <div className="grid grid-cols-[50%,50%] w-4/5 lg:w-3/5 mt-10">
         <MenuBtn meals={['Desayuno', 'Almuerzo']} setCategory={setCategory}></MenuBtn>  
       </div>
       <div className="grid grid-cols-[60%,40%] md:w-4/5 lg:w-3/5">
