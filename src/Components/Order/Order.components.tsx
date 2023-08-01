@@ -81,11 +81,11 @@ function FoodItems({ items, counters, setCounters, category }: MenuItems) {
             </li>
 
             <div className="flex justify-between w-1/4 font-medium text-xl">
-              <button onClick={() => handleDecrement(item.name)}>-</button>
+              <button data-testid="decrement-btn" onClick={() => handleDecrement(item.name)}>-</button>
 
-              <span>{counters[item.name] || 0}</span>
+              <span data-testid="item-qty-span">{counters[item.name] || 0}</span>
 
-              <button onClick={() => handleIncrement(item.name)}>+</button>
+              <button data-testid="increment-btn" onClick={() => handleIncrement(item.name)}>+</button>
             </div>
           </div>
         </ul>

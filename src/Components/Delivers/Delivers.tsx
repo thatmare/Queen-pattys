@@ -175,7 +175,7 @@ export function Delivers() {
           bodyClassName={() => "flex flex-row text-kitchenText items-center"}
           hideProgressBar
         />
-        <section className="block mx-auto mt-6 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-3/5">
+        <section className="block mx-auto mt-6 md:w-4/5 lg:w-3/4 xl:w-2/3 2xl:w-3/5" data-testid="delivers-component">
           {kitchenOrders.map((order) => (
           <div key={order.id}>
             <div className="bg-blackInput rounded-3xl p-4 w-full outline outline-1 outline-celadon">
