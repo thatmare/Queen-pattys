@@ -24,7 +24,6 @@ function Order() {
     localStorage.removeItem("token");
     localStorage.removeItem("role")
     if (localStorage.getItem("token") === null && localStorage.getItem("role") === null) {
-      console.log(localStorage.getItem("token"))
       navigate("/");
     }
   };
