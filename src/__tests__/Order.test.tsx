@@ -110,7 +110,7 @@ describe("Order", () => {
 describe("handleLogout", () => {
   it("Removes the token when clicking in the logout button", async () => {
     localStorage.setItem("token", "test-token");
-    localStorage.setItem("role", "admin");
+    localStorage.setItem("role", "waiter");
     const user = userEvent.setup();
 
     render(

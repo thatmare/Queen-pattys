@@ -116,6 +116,7 @@ function AddUser({
       <button
         className="outline outline-2 outline-kitchenText rounded-lg md:w-20 md:h-12 m-5 text-6xl flex flex-col justify-center items-center mr-1"
         onClick={() => setShowModal(true)}
+        data-testid="add-user-btn"
       >
         +
       </button>
